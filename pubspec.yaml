@@ -1,0 +1,83 @@
+name: document_management
+description: A new Flutter project.
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=2.5.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.2
+  http: ^0.13.5
+  dio: ^4.0.6
+  auto_size_text: ^3.0.0
+  intl: ^0.17.0
+  dropdown_button2: ^1.7.2
+  adaptive_dialog: ^1.5.0+1
+  cached_network_image: ^3.2.1
+  flutter_slidable: ^2.0.0
+  focused_menu: ^1.0.5
+  sliding_up_panel: ^2.0.0+1
+  file_icon: ^1.0.0
+  calendar_date_picker2: ^0.2.3
+  mime: ^1.0.1
+  open_file: ^3.2.1
+  file_picker: ^4.5.1
+  photo_view: ^0.13.0
+  image_picker: ^0.8.5+3
+  flutter_file_dialog: ^2.3.0
+  audioplayers: ^0.20.1
+  flutter_inappwebview: ^5.4.3+7
+  permission:
+    git:
+      url: https://github.com/leovu/permission.git
+      ref: 1.0.1
+  gallery_saver: ^2.3.2
+  flutter_file_view: ^2.0.5
+  pull_to_refresh: ^2.0.0
+
+dependency_overrides:
+  photo_view:
+    git:
+      url: https://github.com/bluefireteam/photo_view
+      ref: 23063d535909027b8e198c2cffa83bf8f0480c96
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  # This section identifies this Flutter project as a plugin project.
+  # The 'pluginClass' specifies the class (in Java, Kotlin, Swift, Objective-C, etc.)
+  # which should be registered in the plugin registry. This is required for
+  # using method channels.
+  # The Android 'package' specifies package in which the registered class is.
+  # This is required for using method channels on Android.
+  # The 'ffiPlugin' specifies that native code should be built and bundled.
+  # This is required for using `dart:ffi`.
+  # All these are used by the tooling to maintain consistency when
+  # adding or updating assets for this project.
+  plugin:
+    platforms:
+      android:
+        package: com.example.document_management
+        pluginClass: DocumentManagementPlugin
+      ios:
+        pluginClass: DocumentManagementPlugin
+
+  # To add assets to your plugin package, add an assets section, like this:
+
+  assets:
+    - assets/document_en.json
+    - assets/document_vi.json
+    - assets/ico/
