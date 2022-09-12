@@ -73,5 +73,10 @@
     <string>Ứng dụng cần bạn chấp nhận cho truy cập thư viện ảnh để  thêm ảnh profile hoặc cho upload ảnh.</string>
     <key>NSSpeechRecognitionUsageDescription</key>
     <string>Ứng dụng cần bạn chấp nhận cho truy cập nhận giọng nói để sử dụng chức năng tự điền ký tự</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 </dict>
 </plist>

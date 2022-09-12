@@ -57,6 +57,7 @@ class Data {
   String? updatedName;
   String? updatedAvatar;
   String? avatar;
+  String? previewMobile;
   String? folderDisplayName;
   FocusNode nameFocus = FocusNode();
   TextEditingController nameController = TextEditingController();
@@ -82,6 +83,7 @@ class Data {
         updatedName,
         updatedAvatar,
         avatar,
+        previewMobile,
         folderDisplayName});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -107,6 +109,7 @@ class Data {
     updatedName = json['updated_name'];
     updatedAvatar = json['updated_avatar'];
     avatar = json['avatar'];
+    previewMobile = json['preview_mobile'];
     folderDisplayName = json['folder_display_name'];
   }
 
@@ -142,6 +145,7 @@ class Data {
     data['updated_name'] = updatedName;
     data['updated_avatar'] = updatedAvatar;
     data['avatar'] = avatar;
+    data['preview_mobile'] = previewMobile;
     data['folder_display_name'] = folderDisplayName;
     return data;
   }

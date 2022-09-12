@@ -76,7 +76,7 @@ class _FileVersionHistoryScreenState extends State<FileVersionHistoryScreen> {
           onTap: () async {
             if(!e.isDownloaded) {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return WebViewScreen(url: '${HTTPConnection.domain}files/preview?file_path=${widget.data.key!}&version_id=${e.versionId}', fileName: e.fileName!,);
+                return WebViewScreen(url: e.previewMobile ?? '', fileName: e.fileName!,);
               }));
             }
             else {

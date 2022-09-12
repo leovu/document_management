@@ -486,7 +486,7 @@ class _FileManagementState extends State<FileManagement> {
                       onTap: () async {
                         if(!e.isDownloaded) {
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                            return WebViewScreen(url: '${HTTPConnection.domain}files/preview?file_path=${e.key!}', fileName: e.fileName!,);
+                            return WebViewScreen(url: e.previewMobile ?? '', fileName: e.fileName!,);
                           }));
                         }
                         else {
@@ -586,7 +586,7 @@ class _FileManagementState extends State<FileManagement> {
           onPressed: () async {
             if(!e.isDownloaded) {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return WebViewScreen(url: '${HTTPConnection.domain}files/preview?file_path=${e.key!}', fileName: e.fileName!,);
+                return WebViewScreen(url: e.previewMobile ?? '', fileName: e.fileName!,);
               }));
             }
             else {
@@ -713,7 +713,7 @@ class _FileManagementState extends State<FileManagement> {
     arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.preview),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.remove_red_eye_outlined) ,onPressed: () async {
       if(!data!.isDownloaded) {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return WebViewScreen(url: '${HTTPConnection.domain}files/preview?file_path=${data.key!}', fileName: data.fileName!,);
+          return WebViewScreen(url: data.previewMobile ?? '', fileName: data.fileName!,);
         }));
       }
       else {

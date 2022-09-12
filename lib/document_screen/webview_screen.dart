@@ -1,10 +1,9 @@
 import 'dart:io';
-
 import 'package:document_management/connection/document_connection.dart';
 import 'package:document_management/connection/http_connection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
   final String url;
@@ -15,27 +14,16 @@ class WebViewScreen extends StatefulWidget {
 }
 
 class _WebViewScreenState extends State<WebViewScreen> {
-  InAppWebViewController? webViewController;
+  void initState() {
+    super.initState();
+    print('***** Webview Load *****');
+    print(widget.url);
+    print('***** Webview Load *****');
+    if (Platform.isAndroid) WebView.platform = AndroidWebView();
+  }
   bool isCompleted = false;
   @override
   Widget build(BuildContext context) {
-    InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
-        crossPlatform: InAppWebViewOptions(
-            javaScriptEnabled: true,
-            cacheEnabled: true,
-            supportZoom: false,
-            clearCache: false,
-            transparentBackground: true,
-            useShouldOverrideUrlLoading: true,
-            mediaPlaybackRequiresUserGesture: false),
-        android: AndroidInAppWebViewOptions(
-          useHybridComposition: false,
-          supportMultipleWindows: false,
-        ),
-        ios: IOSInAppWebViewOptions(
-          allowsInlineMediaPlayback: true,
-        ));
-    final GlobalKey webViewKey = GlobalKey();
     return Scaffold(
         appBar: AppBar(iconTheme: const IconThemeData(
           color: Colors.black, 
@@ -45,18 +33,14 @@ class _WebViewScreenState extends State<WebViewScreen> {
         ),
         body: Stack(
           children: [
-            InAppWebView(
-              key: webViewKey,
-              initialUrlRequest: URLRequest(url: Uri.parse(widget.url),
-                  headers: {
-                    'brand-code' : HTTPConnection.brandCode,
-                    'Authorization':'Bearer ${DocumentConnection.account!.accessToken}'
-                  }),
-              initialOptions: options,
-              onWebViewCreated: (controller) async {
-                webViewController = controller;
+            WebView(
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (c) {
+                c.loadUrl(
+                  widget.url,
+                );
               },
-              onLoadStop: (controller, url) {
+              onPageFinished: (c) {
                 if(isCompleted) return;
                 setState(() {
                   isCompleted = true;

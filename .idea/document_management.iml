@@ -75,6 +75,9 @@
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/audioplayers/build" />
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/audioplayers/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/audioplayers/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/document_management/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/document_management/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/document_management/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
