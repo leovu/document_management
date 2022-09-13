@@ -108,7 +108,9 @@ class Properties {
       file = [json['file']];
     }
     else {
-      file = json['file'].cast<String>();
+      try{
+        file = json['file'].cast<String>();
+      }catch(_) {}
     }
   }
 

@@ -180,6 +180,7 @@ class _FolderInformationScreentState extends State<FolderInformationScreen> {
           e.detail!.map((i) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Container(height:15.0),
               AutoSizeText('${i.indentity?.staff?.fullName ?? ''} - ${e.logDate ?? ''}',style: const TextStyle(fontWeight: FontWeight.bold),),
               AutoSizeText(i.description ?? ''),
               if(i.properties?.file!=null && i.properties!.file!.isNotEmpty) Column(
