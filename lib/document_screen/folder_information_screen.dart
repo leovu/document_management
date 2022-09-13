@@ -13,7 +13,8 @@ import 'package:intl/intl.dart';
 
 class FolderInformationScreen extends StatefulWidget {
   final r.Data? data;
-  const FolderInformationScreen({Key? key,this.data}) : super(key: key);
+  final String? password;
+  const FolderInformationScreen({Key? key,this.data, this.password}) : super(key: key);
   @override
   State<FolderInformationScreen> createState() => _FolderInformationScreentState();
 }
@@ -31,7 +32,7 @@ class _FolderInformationScreentState extends State<FolderInformationScreen> {
     getDetail();
   }
   void getDetail() async {
-    folderInformation = await DocumentConnection.folderInformation(widget.data?.folderName ?? '');
+    folderInformation = await DocumentConnection.folderInformation(widget.data?.folderName ?? '',password: widget.password);
     folderLog = await DocumentConnection.folderLog(widget.data?.folderName ?? '');
     isInitScreen = false;
     setState(() {});

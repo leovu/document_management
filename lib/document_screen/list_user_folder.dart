@@ -51,7 +51,7 @@ class _ListUserFolderScreenState extends State<ListUserFolderScreen> {
               color: Colors.black, 
             ),
             backgroundColor: Colors.white,
-            title: Text(AppLocalizations.text(LangKey.createFolder),style: const TextStyle(color: Colors.black),),
+            title: Text(AppLocalizations.text(LangKey.userList),style: const TextStyle(color: Colors.black),),
             actions: <Widget>[
               if(widget.data?.owner == DocumentConnection.account?.user?.staff?.userName) InkWell(
                 onTap: () async {

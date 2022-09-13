@@ -80,7 +80,7 @@ class _FileManagementState extends State<FileManagement> {
     setState(() {
       isInitScreen = true;
     });
-    files = await DocumentConnection.fileList(widget.data.folderName!,sortTypeKey,sortTypeValue,owner: isOwner == null ? null : isOwner == true ? 1 : 0,fromDate: fromDate,toDate: toDate);
+    files = await DocumentConnection.fileList(widget.data.folderName!,sortTypeKey,sortTypeValue,owner: isOwner == null ? null : isOwner == true ? 1 : 0,fromDate: fromDate,toDate: toDate,password: widget.password);
     _getVisible();
     setState(() {
       isInitScreen = false;
@@ -475,105 +475,105 @@ class _FileManagementState extends State<FileManagement> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Stack(
-                children: [
-                  FocusedMenuHolder(
-                    onPressed: () {},
-                    menuItems: focusMenu(data:e),
-                    menuOffset: 3.0,
-                    menuWidth: MediaQuery.of(context).size.width * 0.6 > 240 ? 240 : MediaQuery.of(context).size.width * 0.6,
-                    child: InkWell(
+              Expanded(
+                child: Stack(
+                  children: [
+                    FocusedMenuHolder(
+                      onPressed: () {},
+                      menuItems: focusMenu(data:e),
+                      menuOffset: 3.0,
+                      menuWidth: MediaQuery.of(context).size.width * 0.6 > 240 ? 240 : MediaQuery.of(context).size.width * 0.6,
+                      child: InkWell(
+                        onTap: () async {
+                          if(!e.isDownloaded) {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                              return WebViewScreen(url: e.previewMobile ?? '', fileName: e.fileName!,);
+                            }));
+                          }
+                          else {
+                            if(e.isDownloading) return;
+                            setState(() {
+                              e.isDownloading = true;
+                            });
+                            String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${e.fileId}','${e.createdDate}_${e.fileName}');
+                            if(!mounted) return;
+                            await FileProcess.openFile(result,context,e.fileName!);
+                            setState(() {
+                              e.isDownloading = false;
+                            });
+                          }
+                        },
+                        child: SizedBox(height: 80.0,width: 80.0,
+                          child: FileIcon(
+                            e.fileName!,
+                            size: 80,
+                          ),),
+                      ),
+                    ),
+                    Positioned(bottom: 0,right: -10,child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          selectedFile = e;
+                        });
+                      },
+                      child: SizedBox(height: 40.0,width: 40.0,
+                        child: Icon(Icons.info,color: const Color(0xff4fc4ca).withAlpha(180),)
+                        ,),
+                    ),),
+                    Positioned(top: 0,right: -10,child: InkWell(
                       onTap: () async {
-                        if(!e.isDownloaded) {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                            return WebViewScreen(url: e.previewMobile ?? '', fileName: e.fileName!,);
-                          }));
-                        }
-                        else {
-                          if(e.isDownloading) return;
+                        if(e.isDownloaded) return;
+                        if(!e.isDownloading) {
                           setState(() {
                             e.isDownloading = true;
                           });
                           String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${e.fileId}','${e.createdDate}_${e.fileName}');
-                          if(!mounted) return;
-                          await FileProcess.openFile(result,context,e.fileName!);
                           setState(() {
+                            if(result != null) {
+                              e.isDownloaded = true;
+                            }
                             e.isDownloading = false;
                           });
                         }
                       },
-                      child: SizedBox(height: 80.0,width: 80.0,
-                        child: FileIcon(
-                          e.fileName!,
-                          size: 80,
-                        ),),
+                      child: SizedBox(height: 40.0,width: 40.0,
+                        child: Icon(e.isDownloaded ? Icons.cloud_done_outlined :Icons.cloud_download_outlined,color: Colors.grey.shade600,)
+                        ,),
+                    ),),
+                    if(e.isDownloading) const Positioned.fill(
+                      child: Align(
+                          alignment: Alignment.center,
+                          child: SizedBox(
+                            height: 10.0,
+                            width: 10.0,
+                            child: CircularProgressIndicator(color: Colors.black,),
+                          )
+                      ),
                     ),
-                  ),
-                  Positioned(bottom: 0,right: -10,child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        selectedFile = e;
-                      });
-                    },
-                    child: SizedBox(height: 40.0,width: 40.0,
-                      child: Icon(Icons.info,color: const Color(0xff4fc4ca).withAlpha(180),)
-                      ,),
-                  ),),
-                  Positioned(top: 0,right: -10,child: InkWell(
-                    onTap: () async {
-                      if(e.isDownloaded) return;
-                      if(!e.isDownloading) {
-                        setState(() {
-                          e.isDownloading = true;
-                        });
-                        String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${e.fileId}','${e.createdDate}_${e.fileName}');
-                        setState(() {
-                          if(result != null) {
-                            e.isDownloaded = true;
-                          }
-                          e.isDownloading = false;
-                        });
-                      }
-                    },
-                    child: SizedBox(height: 40.0,width: 40.0,
-                      child: Icon(e.isDownloaded ? Icons.cloud_done_outlined :Icons.cloud_download_outlined,color: Colors.grey.shade600,)
-                      ,),
-                  ),),
-                  if(e.isDownloading) const Positioned.fill(
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          height: 10.0,
-                          width: 10.0,
-                          child: CircularProgressIndicator(color: Colors.black,),
-                        )
-                    ),
-                  ),
-                ],
-              ),
-              AutoSizeText(e.fileName ?? '',overflow: TextOverflow.ellipsis,style: const TextStyle(fontWeight: FontWeight.bold),textScaleFactor: 1.05,),
-              Container(height: 4.0),
-              AutoSizeText('Ver ${e.version} - ${format2.format(format4.parse(e.createdDate!, true).toLocal())}',overflow: TextOverflow.ellipsis,maxLines: 1,textScaleFactor: 0.8,),
-              Container(height: 5.0),
-              Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(child: Container()),
-                    e.updatedAvatar == null ? CircleAvatar(
-                      radius: 8.0,
-                      child: Text(e.getAvatarName()),
-                    ) : CircleAvatar(
-                      radius: 8.0,
-                      backgroundImage:
-                      CachedNetworkImageProvider(e.updatedAvatar!),
-                      backgroundColor: Colors.transparent,
-                    ),
-                    Container(width: 4.0),
-                    Expanded(flex: 2,child: AutoSizeText(e.updatedName ?? '',overflow: TextOverflow.ellipsis,maxLines: 1,textScaleFactor: 0.9,),),
                   ],
                 ),
+              ),
+              AutoSizeText(e.fileName ?? '',overflow: TextOverflow.ellipsis,style: const TextStyle(fontWeight: FontWeight.bold),textScaleFactor: 1.05,),
+              Container(height: 3.0),
+              AutoSizeText('Ver ${e.version} - ${format2.format(format4.parse(e.createdDate!, true).toLocal())}',overflow: TextOverflow.ellipsis,maxLines: 1,textScaleFactor: 0.8,),
+              Container(height: 3.0),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(child: Container()),
+                  e.updatedAvatar == null ? CircleAvatar(
+                    radius: 8.0,
+                    child: Text(e.getAvatarName()),
+                  ) : CircleAvatar(
+                    radius: 8.0,
+                    backgroundImage:
+                    CachedNetworkImageProvider(e.updatedAvatar!),
+                    backgroundColor: Colors.transparent,
+                  ),
+                  Container(width: 4.0),
+                  Expanded(flex: 2,child: AutoSizeText(e.updatedName ?? '',overflow: TextOverflow.ellipsis,maxLines: 1,textScaleFactor: 0.9,),),
+                ],
               )
             ],
           );

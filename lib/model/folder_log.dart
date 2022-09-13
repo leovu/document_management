@@ -104,7 +104,10 @@ class Properties {
   Properties({file});
 
   Properties.fromJson(Map<String, dynamic> json) {
-    if(json['file'] != null) {
+    if(json['file'] is String) {
+      file = [json['file']];
+    }
+    else {
       file = json['file'].cast<String>();
     }
   }

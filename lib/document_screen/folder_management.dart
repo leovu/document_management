@@ -547,7 +547,7 @@ class _FolderManagementState extends State<FolderManagement> {
   List<FocusedMenuItem> focusMenu({Data? data}) {
     List<FocusedMenuItem> arr = [];
     arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.detailInfo),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.info_outline) ,onPressed: (){
-      Navigator.of(context).push(MaterialPageRoute( builder: (context) => FolderInformationScreen(data: data!,)));
+      showPasswordInputDialog(data!, 4);
     }));
     if(data?.userPermission?.writeBucket == true || data?.userPermission?.readWriteBucket == true) {
       arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.changeName),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.edit) ,onPressed: (){
@@ -609,9 +609,7 @@ class _FolderManagementState extends State<FolderManagement> {
     }));
     }
     arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.shareFolder),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.share) ,onPressed: (){
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return ShareScreen(folderData: data!);
-      }));
+      showPasswordInputDialog(data!, 5);
     }));
     // arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.selectMany));overflow: TextOverflow.ellipsis,));trailingIcon: Icon(Icons.select_all) ,onPressed: (){}));
     return arr;
@@ -669,7 +667,15 @@ class _FolderManagementState extends State<FolderManagement> {
   }
 
   void showPasswordInputDialog(Data data, int type) {
-    if(type == 2 && data.folderPassword != true) {
+    if(type == 4 && data.folderPassword != true) {
+      Navigator.of(context).push(MaterialPageRoute( builder: (context) => FolderInformationScreen(data: data,)));
+    }
+    else if(type == 5 && data.folderPassword != true) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return ShareScreen(folderData: data);
+      }));
+    }
+    else if(type == 2 && data.folderPassword != true) {
       openFolder(data,null);
     }
     else if(type == 3 && data.folderPassword != true) {
@@ -726,10 +732,30 @@ class _FolderManagementState extends State<FolderManagement> {
                               data.nameController.text = '';
                               data.passwordController.text = '';
                             }
-                            else {
+                            else if(type == 3) {
                               await deleteFolderRequest(data);
                               data.nameController.text = '';
                               data.passwordController.text = '';
+                            }
+                            else if(type == 4) {
+                              bool result = await checkFolderPassword(data, data.passwordController.text);
+                              if(!mounted) return;
+                              if(result) {
+                                await Navigator.of(DocumentConnection.buildContext!).push(MaterialPageRoute( builder: (context) => FolderInformationScreen(data: data,password: data.passwordController.text,)));
+                                data.nameController.text = '';
+                                data.passwordController.text = '';
+                              }
+                            }
+                            else if(type == 5) {
+                              bool result = await checkFolderPassword(data, data.passwordController.text);
+                              if(!mounted) return;
+                              if(result) {
+                                Navigator.of(DocumentConnection.buildContext!).push(MaterialPageRoute(builder: (context) {
+                                  return ShareScreen(folderData: data);
+                                }));
+                                data.nameController.text = '';
+                                data.passwordController.text = '';
+                              }
                             }
                           },
                         )),

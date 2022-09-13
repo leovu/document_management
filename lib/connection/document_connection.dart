@@ -74,8 +74,12 @@ class DocumentConnection {
     }
     return null;
   }
-  static Future<FolderInformation?> folderInformation(String folderName) async {
-    ResponseData responseData = await connection.get('folder/detail?name=$folderName');
+  static Future<FolderInformation?> folderInformation(String folderName,{String? password}) async {
+    String path = 'folder/detail?name=$folderName';
+    if(password!=null) {
+      path += '&password=$password';
+    }
+    ResponseData responseData = await connection.get(path);
     if(responseData.isSuccess) {
       FolderInformation folderInformation = FolderInformation.fromJson(responseData.data);
       return folderInformation;

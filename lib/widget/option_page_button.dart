@@ -13,24 +13,20 @@ class OptionPageButton extends StatefulWidget {
 class _OptionPageButtonState extends State<OptionPageButton> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton2<dynamic>(
-            customButton: Image.asset('assets/ico/ico-popup-menu.png',package: 'document_management',),
-            items: _menuItems(),
-            onChanged: (value) {
-              OptionMenuItems.onChanged(context, value as OptionMenuItem);
-            },
-            itemHeight: 20,
-            dropdownWidth: 270,
-            dropdownDecoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-            ),
-            itemPadding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 1.5),
-            offset: const Offset(0,8),
-          ),
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2<dynamic>(
+        customButton: Image.asset('assets/ico/ico-popup-menu.png',package: 'document_management',),
+        items: _menuItems(),
+        onChanged: (value) {
+          OptionMenuItems.onChanged(context, value as OptionMenuItem);
+        },
+        itemHeight: 20,
+        dropdownWidth: 270,
+        dropdownDecoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
         ),
+        itemPadding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 1.5),
+        offset: const Offset(0,8),
       ),
     );
   }
