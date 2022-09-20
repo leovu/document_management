@@ -10,6 +10,7 @@ import 'package:document_management/localization/lang_key.dart';
 import 'package:flutter/material.dart';
 import 'package:mime/mime.dart';
 import 'package:open_file/open_file.dart';
+// ignore_for_file: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:permission/permission.dart';

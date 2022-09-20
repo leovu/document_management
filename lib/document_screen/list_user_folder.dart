@@ -298,10 +298,16 @@ class _ListUserFolderScreenState extends State<ListUserFolderScreen> {
     }
   }
 
-  void setStaffPermission(Data data, String permission) {
+  void setStaffPermission(Data data, String permission) async {
     setState(() {
       data.indentity?.permission = permission;
     });
+    List<Map<String,dynamic>> list = [];
+    list.add({
+      'user_name': data.indentity?.staff?.userName ?? '',
+      'permission': data.indentity?.permission
+    });
+    await DocumentConnection.addFolderPolicy(widget.data?.folderName ?? '', list);
   }
 
   Widget title(String title, {bool isRequired = false}) {

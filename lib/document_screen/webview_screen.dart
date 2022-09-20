@@ -1,7 +1,6 @@
 import 'dart:io';
-import 'package:document_management/connection/document_connection.dart';
-import 'package:document_management/connection/http_connection.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -14,11 +13,14 @@ class WebViewScreen extends StatefulWidget {
 }
 
 class _WebViewScreenState extends State<WebViewScreen> {
+  @override
   void initState() {
     super.initState();
-    print('***** Webview Load *****');
-    print(widget.url);
-    print('***** Webview Load *****');
+    if (kDebugMode) {
+      print('***** Webview Load *****');
+      print(widget.url);
+      print('***** Webview Load *****');
+    }
     if (Platform.isAndroid) WebView.platform = AndroidWebView();
   }
   bool isCompleted = false;

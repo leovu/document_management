@@ -2,6 +2,7 @@ import 'package:document_management/document_management.dart';
 import 'package:document_management/localization/app_localization.dart';
 import 'package:document_management/localization/lang_key.dart';
 import 'package:flutter/material.dart';
+// ignore_for_file: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
@@ -35,7 +36,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setState(() {
-        _tokenController.text = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWZmLWFwaS5zdGFnLmVwb2ludHMudm4vdXNlci9sb2dpbiIsImlhdCI6MTY2MzA0MTQ5OCwiZXhwIjoxNjYzMDYzMDk4LCJuYmYiOjE2NjMwNDE0OTgsImp0aSI6Ik9Ba3ZpQU1NOFhmSzA4dzEiLCJzdWIiOjEsInBydiI6ImEwZjNlNzRiZWRmNTEyYzQ3NzgyOTdkZTVmOTIwODZkYWQzOWNhOWYiLCJzaWQiOiJhZG1pbkBwaW9hcHBzLnZuIiwiYnJhbmRfY29kZSI6InFjIn0.sHa1IjewqmjTUA_noapsFuyPBZhTQB4hdHQ47Ft6kbs';
+        _tokenController.text = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vc3RhZmYtYXBpLnN0YWcuZXBvaW50cy52bi91c2VyL2xvZ2luIiwiaWF0IjoxNjYzNjU4ODg4LCJleHAiOjE2NjM2ODA0ODgsIm5iZiI6MTY2MzY1ODg4OCwianRpIjoiY1BidGlxWDByYlNURlRtRCIsInN1YiI6MSwicHJ2IjoiYTBmM2U3NGJlZGY1MTJjNDc3ODI5N2RlNWY5MjA4NmRhZDM5Y2E5ZiIsInNpZCI6ImFkbWluQHBpb2FwcHMudm4iLCJicmFuZF9jb2RlIjoicWMifQ.qA-SsbT9pic2zqCfuLsEjXP9MnfLCiZ_WUh6bkgj-QA';
         _domainController.text = 'https://qc.stag.epoints.vn/file/api/';
       });
     });

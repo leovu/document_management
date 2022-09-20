@@ -141,17 +141,18 @@ class DocumentConnection {
     }
     return false;
   }
-  static Future<bool> createFolderPassword(String folderName,String password) async {
+  static Future<bool> createFolderPassword(BuildContext context, String folderName,String password) async {
     ResponseData responseData = await connection.post('folder/create-password', {'name':folderName,'folder_password':password});
     if(responseData.isSuccess) {
       return true;
     }
     else {
-      DocumentConnection.error(DocumentConnection.buildContext!, responseData.data['message']);
+      // ignore: use_build_context_synchronously
+      DocumentConnection.error(context, responseData.data['message']);
       return false;
     }
   }
-  static Future<bool> checkFolderPassword(String folderName,String password) async {
+  static Future<bool> checkFolderPassword(BuildContext context, String folderName,String password) async {
     DocumentConnection.showLoading(DocumentConnection.buildContext!);
     ResponseData responseData = await connection.post('folder/check-password', {'folder_name':folderName,'password':password});
     Navigator.of(DocumentConnection.buildContext!).pop();
@@ -159,11 +160,12 @@ class DocumentConnection {
       return true;
     }
     else {
-      DocumentConnection.error(DocumentConnection.buildContext!, responseData.data['message']);
+      // ignore: use_build_context_synchronously
+      DocumentConnection.error(context, responseData.data['message']);
       return false;
     }
   }
-  static Future<bool> updateFolderPassword(String folderName,String currentPassword, String newPassword) async {
+  static Future<bool> updateFolderPassword(BuildContext context,String folderName,String currentPassword, String newPassword) async {
     DocumentConnection.showLoading(DocumentConnection.buildContext!);
     ResponseData responseData = await connection.post('folder/update-password', {'name':folderName,'current_password':currentPassword,'new_password':newPassword});
     Navigator.of(DocumentConnection.buildContext!).pop();
@@ -171,11 +173,12 @@ class DocumentConnection {
       return true;
     }
     else {
-      DocumentConnection.error(DocumentConnection.buildContext!, responseData.data['message']);
+      // ignore: use_build_context_synchronously
+      DocumentConnection.error(context, responseData.data['message']);
     }
     return false;
   }
-  static Future<bool> deleteFolderPassword(String folderName,String password) async {
+  static Future<bool> deleteFolderPassword(BuildContext context,String folderName,String password) async {
     DocumentConnection.showLoading(DocumentConnection.buildContext!);
     ResponseData responseData = await connection.delete('folder/delete-password', {'name':folderName,'password':password});
     Navigator.of(DocumentConnection.buildContext!).pop();
@@ -183,7 +186,8 @@ class DocumentConnection {
       return true;
     }
     else {
-      DocumentConnection.error(DocumentConnection.buildContext!, responseData.data['message']);
+      // ignore: use_build_context_synchronously
+      DocumentConnection.error(context, responseData.data['message']);
       return false;
     }
   }
@@ -278,7 +282,7 @@ class DocumentConnection {
     }
     return false;
   }
-  static Future<bool> moveFileToFolder(String filePath, String folderName) async {
+  static Future<bool> moveFileToFolder(BuildContext context,String filePath, String folderName) async {
     ResponseData responseData = await connection.post('files/move', {
       'file_path':filePath,
       'folder_name':folderName
@@ -287,7 +291,8 @@ class DocumentConnection {
       return true;
     }
     else {
-      DocumentConnection.error(DocumentConnection.buildContext!, responseData.data['message']);
+      // ignore: use_build_context_synchronously
+      DocumentConnection.error(context, responseData.data['message']);
       return false;
     }
   }

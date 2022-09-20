@@ -14,7 +14,7 @@ class MediaScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _MediaScreenState createState() => _MediaScreenState();
+  State<MediaScreen> createState() => _MediaScreenState();
 }
 
 class _MediaScreenState extends State<MediaScreen> with SingleTickerProviderStateMixin {

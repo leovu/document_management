@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:document_management/connection/document_connection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class HTTPConnection {
@@ -24,10 +25,12 @@ class HTTPConnection {
       }
     }
     //TODO: Log HTTP Connection
-    print('***** Upload *****');
-    print(uri);
-    print(request.headers);
-    print('***** Upload *****');
+    if (kDebugMode) {
+      print('***** Upload *****');
+      print(uri);
+      print(request.headers);
+      print('***** Upload *****');
+    }
     var streamResponse = await request.send();
     var response = await http.Response.fromStream(streamResponse);
     if(response.statusCode == 200) {
@@ -56,11 +59,13 @@ class HTTPConnection {
       headers['Authorization'] = 'Bearer ${DocumentConnection.account!.accessToken}';
     }
     String jsonBody = json.encode(body);
-    print('***** POST *****');
-    print(uri);
-    print(headers);
-    print(jsonBody);
-    print('***** POST *****');
+    if (kDebugMode) {
+      print('***** POST *****');
+      print(uri);
+      print(headers);
+      print(jsonBody);
+      print('***** POST *****');
+    }
     final encoding = Encoding.getByName('utf-8');
     http.Response response = await http.post(
       uri,
@@ -100,11 +105,13 @@ class HTTPConnection {
       headers['Authorization'] = 'Bearer ${DocumentConnection.account!.accessToken}';
     }
     String jsonBody = json.encode(body);
-    print('***** DELETE *****');
-    print(uri);
-    print(headers);
-    print(jsonBody);
-    print('***** DELETE *****');
+    if (kDebugMode) {
+      print('***** DELETE *****');
+      print(uri);
+      print(headers);
+      print(jsonBody);
+      print('***** DELETE *****');
+    }
     final encoding = Encoding.getByName('utf-8');
     http.Response response = await http.delete(
       uri,
@@ -141,10 +148,12 @@ class HTTPConnection {
     if(DocumentConnection.account != null) {
       headers['Authorization'] = 'Bearer ${DocumentConnection.account!.accessToken}';
     }
-    print('***** GET *****');
-    print(uri);
-    print(headers);
-    print('***** GET *****');
+    if (kDebugMode) {
+      print('***** GET *****');
+      print(uri);
+      print(headers);
+      print('***** GET *****');
+    }
     http.Response response = await http.get(
       uri,
       headers: headers,

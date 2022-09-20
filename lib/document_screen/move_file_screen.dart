@@ -124,7 +124,7 @@ class _MoveFileScreenState extends State<MoveFileScreen> {
   }
   void moveFileToFolder(folder.Data folderData, String? password) async {
     DocumentConnection.showLoading(context);
-    bool result = await DocumentConnection.moveFileToFolder(widget.fileData.key??'', folderData.folderName??'');
+    bool result = await DocumentConnection.moveFileToFolder(context,widget.fileData.key??'', folderData.folderName??'');
     if(!mounted) return;
     Navigator.of(context).pop();
     if(result) {
@@ -152,7 +152,7 @@ class _MoveFileScreenState extends State<MoveFileScreen> {
       DocumentConnection.error(context, AppLocalizations.text(LangKey.emptyPasswordFolder));
       return;
     }
-    bool result = await DocumentConnection.checkFolderPassword(data.folderName!, password!);
+    bool result = await DocumentConnection.checkFolderPassword(context,data.folderName!, password!);
     if(result) {
       moveFileToFolder(data, password);
     }

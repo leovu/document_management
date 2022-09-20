@@ -5,9 +5,8 @@ class PlayAudio extends StatefulWidget {
   final String url;
 
   const PlayAudio({Key? key, required this.url}) : super(key: key);
-
   @override
-  _PlayAudioState createState() => _PlayAudioState();
+  State<PlayAudio> createState() => _PlayAudioState();
 }
 
 class _PlayAudioState extends State<PlayAudio> with TickerProviderStateMixin{

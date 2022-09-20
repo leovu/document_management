@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:document_management/connection/file_process.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -8,7 +7,7 @@ class PhotoScreen extends StatefulWidget {
   final String imageViewed;
   const PhotoScreen({Key? key, required this.imageViewed}) : super(key: key);
   @override
-  _PhotoScreenState createState() => _PhotoScreenState();
+  State<PhotoScreen> createState() => _PhotoScreenState();
 }
 
 class _PhotoScreenState extends State<PhotoScreen> {

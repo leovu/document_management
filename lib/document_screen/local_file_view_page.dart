@@ -15,7 +15,7 @@ class LocalFileViewerPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LocalFileViewerPageState createState() => _LocalFileViewerPageState();
+  State<LocalFileViewerPage> createState() => _LocalFileViewerPageState();
 }
 
 class _LocalFileViewerPageState extends State<LocalFileViewerPage> {

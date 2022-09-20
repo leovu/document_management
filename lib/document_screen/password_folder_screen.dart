@@ -174,16 +174,19 @@ class _PasswordFolderScreenState extends State<PasswordFolderScreen> {
                 bool result = await validate();
                 if(!result) return;
                 if(widget.isCreatedPassword) {
-                  bool result = await DocumentConnection.createFolderPassword(widget.data.folderName!,_newPasswordController.text);
+                  if(!mounted) return;
+                  bool result = await DocumentConnection.createFolderPassword(context, widget.data.folderName!,_newPasswordController.text);
                   if(result) {
                     if(!mounted) return;
                     Navigator.of(context).pop(true);
                   }
                 }
                 else {
-                  bool checkPassword = await DocumentConnection.checkFolderPassword(widget.data.folderName!, _currentPasswordController.text);
+                  if(!mounted) return;
+                  bool checkPassword = await DocumentConnection.checkFolderPassword(context,widget.data.folderName!, _currentPasswordController.text);
                   if(checkPassword) {
-                    bool result = await DocumentConnection.updateFolderPassword(widget.data.folderName!, _currentPasswordController.text, _newPasswordController.text);
+                    if(!mounted) return;
+                    bool result = await DocumentConnection.updateFolderPassword(context,widget.data.folderName!, _currentPasswordController.text, _newPasswordController.text);
                     if(result) {
                       if(!mounted) return;
                       Navigator.of(context).pop(true);

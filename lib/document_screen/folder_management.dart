@@ -655,7 +655,7 @@ class _FolderManagementState extends State<FolderManagement> {
     bool check =  await checkFolderPassword(data,password);
     if(!check) return;
     if(!mounted) return;
-    bool result = await DocumentConnection.deleteFolderPassword(data.folderName ?? '', password);
+    bool result = await DocumentConnection.deleteFolderPassword(context,data.folderName ?? '', password);
     if(result) {
       try {
         int index = folders!.data!.indexOf(data);
@@ -771,7 +771,7 @@ class _FolderManagementState extends State<FolderManagement> {
 
   Future<bool> checkFolderPassword(Data data, String password) async {
     if(data.folderPassword != true) return true;
-    return await DocumentConnection.checkFolderPassword(data.folderName!, password);
+    return await DocumentConnection.checkFolderPassword(context,data.folderName!, password);
   }
 
   Future<void> changeFolderName(Data data,String folderName, {String password = '', bool isPasswordFolder = false}) async {
