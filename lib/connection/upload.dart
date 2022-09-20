@@ -58,7 +58,7 @@ List<SheetAction<String>> _attachmentSheetAction() {
   ));
   list.add(SheetAction(
     icon: Icons.file_copy,
-    label: AppLocalizations.text(LangKey.file),
+    label: AppLocalizations.text(LangKey.file).replaceFirst(AppLocalizations.text(LangKey.file)[0], AppLocalizations.text(LangKey.file)[0].toUpperCase()),
     key: 'File',
   ));
   if(Platform.isAndroid) {
