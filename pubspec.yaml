@@ -24,7 +24,7 @@ dependencies:
   focused_menu: ^1.0.5
   sliding_up_panel: ^2.0.0+1
   file_icon: ^1.0.0
-  calendar_date_picker2: ^0.2.3
+  calendar_date_picker2: ^0.2.4
   mime: ^1.0.1
   open_file: ^3.2.1
   file_picker: ^4.5.1

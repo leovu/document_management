@@ -120,7 +120,7 @@ class _ShareScreenState extends State<ShareScreen> {
                       ),
                       dialogSize: const Size(325, 400),
                       initialValue: [],
-                      borderRadius: 15,
+                      borderRadius: BorderRadius.circular(15),
                     );
                     if(results != null) {
                       date = format3.format(results[0]!);
