@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:document_management/connection/document_connection.dart';
@@ -20,6 +21,7 @@ import 'package:file_icon/file_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/modals.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -943,5 +945,34 @@ class _FileManagementState extends State<FileManagement> {
     }catch(_) {}
     _getVisible();
     setState(() {});
+  }
+
+  void upload(BuildContext context, UploadFile uploadFile) {
+    showModalActionSheet<String>(
+      context: context,
+      actions: Upload.attachmentSheetAction(),
+    ).then((value) => value == 'Photo Gallery'
+        ? Upload.handleImageSelection(context,ImageSource.gallery,uploadFile,null)
+        : value == "Photo Camera"
+        ? Upload.handleImageSelection(context,ImageSource.camera,uploadFile,null)
+        : value == 'Video'
+        ? Upload.handelVideoSelection(context,uploadFile,null)
+        : value == 'File'
+        ? Upload.handleFileSelection(context,uploadFile,null)
+        : {});
+  }
+  void replace(BuildContext context, ReplaceFile replaceFile, Data data) {
+    showModalActionSheet<String>(
+      context: context,
+      actions: Upload.attachmentSheetAction(),
+    ).then((value) => value == 'Photo Gallery'
+        ? Upload.handleImageSelection(context,ImageSource.gallery,null,replaceFile,data: data)
+        : value == "Photo Camera"
+        ? Upload.handleImageSelection(context,ImageSource.camera,null,replaceFile,data: data)
+        : value == 'Video'
+        ? Upload.handelVideoSelection(context,null,replaceFile,data: data)
+        : value == 'File'
+        ? Upload.handleFileSelection(context,null,replaceFile,data: data)
+        : {});
   }
 }
