@@ -754,7 +754,7 @@ class _FileManagementState extends State<FileManagement> {
       }));
     }
     arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.copyFile),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.copy) ,onPressed: () async {
-      data!.nameController.text = '${data.fileName} (${AppLocalizations.text(LangKey.copyFile)})';
+      data!.nameController.text = '${data.fileName?.replaceAll(getFileExtension(data.fileName??''), '')} (${AppLocalizations.text(LangKey.copyFile)})';
       showPasswordInputDialog(data,2);
     }));
     arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.commentFile),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.comment) ,onPressed: (){
@@ -974,5 +974,12 @@ class _FileManagementState extends State<FileManagement> {
         : value == 'File'
         ? Upload.handleFileSelection(context,null,replaceFile,data: data)
         : {});
+  }
+  String getFileExtension(String fileName) {
+    try {
+      return '.${fileName.split('.').last}';
+    } catch(e){
+      return '';
+    }
   }
 }
