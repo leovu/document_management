@@ -138,7 +138,7 @@ class _FileManagementState extends State<FileManagement> {
                     width: 40.0,
                     child: OptionPageButton(
                       items: [
-                        OptionMenuItem(text: AppLocalizations.text(LangKey.uploadFile), icon: Icons.upload_file, key: 'uploadFile', action:  () async {
+                        if(widget.data.userPermission?.writeBucket == true || widget.data.userPermission?.readWriteBucket == true) OptionMenuItem(text: AppLocalizations.text(LangKey.uploadFile), icon: Icons.upload_file, key: 'uploadFile', action:  () async {
                           upload(context, uploadFile);
                         }),
                         OptionMenuItem(text: AppLocalizations.text(LangKey.icons), icon: Icons.category_outlined, key: 'icons',isSelected: type == 1 ? true : false, action: () {
@@ -784,14 +784,16 @@ class _FileManagementState extends State<FileManagement> {
         return FileInformationScreen(data: data!);
       }));
     }));
-    arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.versionHistory),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.history) ,onPressed: () async {
-      bool? result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return FileVersionHistoryScreen(data: data!);
+    if(widget.data.userPermission?.writeBucket == true || widget.data.userPermission?.readWriteBucket == true) {
+      arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.versionHistory),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.history) ,onPressed: () async {
+        bool? result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return FileVersionHistoryScreen(data: data!);
+        }));
+        if(result == true) {
+          fileList();
+        }
       }));
-      if(result == true) {
-        fileList();
-      }
-    }));
+    }
     if(data?.owner == DocumentConnection.account?.user?.staff?.userName) {
       arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.delete),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.delete) ,onPressed: (){
         showPasswordInputDialog(data!,1);
