@@ -92,7 +92,7 @@ class _FileInformationScreenState extends State<FileInformationScreen> {
               children: [
                 AutoSizeText('${AppLocalizations.text(LangKey.createdDate)}:'),
                 Container(width: 10.0,),
-                Expanded(child: AutoSizeText(format2.format(format1.parse(widget.data.createdDate!, true).toLocal())))
+                Expanded(child: AutoSizeText(widget.data.createdDate!))
               ],
             ),
             Container(height: 15.0,),
@@ -100,6 +100,16 @@ class _FileInformationScreenState extends State<FileInformationScreen> {
             Container(height: 20.0,),
             AutoSizeText('${AppLocalizations.text(LangKey.latestUpdatedDate)}:',style: const TextStyle(fontWeight: FontWeight.bold),),
             Container(height: 15.0,),
+            if(fileLog?.data!=null) Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: AutoSizeText.rich(TextSpan(
+                  children: [
+                    TextSpan(text: '${widget.data.lastModified} '),
+                    TextSpan(text:  AppLocalizations.text(LangKey.by),style: const TextStyle(fontWeight: FontWeight.w600)),
+                    TextSpan(text: ' ${widget.data.updatedName} ')
+                  ]
+              )),
+            ),
             if(fileLog?.data!=null) Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: logView()
@@ -112,33 +122,18 @@ class _FileInformationScreenState extends State<FileInformationScreen> {
     List<Widget> arr = [];
     for(int i =0;i<=fileLog!.data!.length-1;i++) {
       Data e = fileLog!.data![i];
-      if(i != 0) {
-        arr.add(Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AutoSizeText.rich(TextSpan(
+      arr.add(Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AutoSizeText.rich(TextSpan(
               children: [
-                TextSpan(text: '${e.indentity?.staff?.fullName} '),
+                TextSpan(text: '${e.indentity?.staff?.fullName} - '),
                 TextSpan(text: '${e.updatedAt}',style: const TextStyle(fontWeight: FontWeight.w600))
               ]
-            )),
-            AutoSizeText('${e.description}')
-          ],
-        ));
-      }
-      else {
-        arr.add(Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AutoSizeText.rich(TextSpan(
-                children: [
-                  TextSpan(text: '${e.updatedAt} ',style: const TextStyle(fontWeight: FontWeight.w600)),
-                  TextSpan(text: '${e.description} ')
-                ]
-            )),
-          ],
-        ));
-      }
+          )),
+          AutoSizeText('${e.description}')
+        ],
+      ));
       arr.add(Container(height: 10.0,));
     }
     return arr;
