@@ -18,7 +18,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
     super.initState();
     if (kDebugMode) {
       print('***** Webview Load *****');
-      print(widget.url);
+      print(Uri.encodeFull(widget.url));
       print('***** Webview Load *****');
     }
     if (Platform.isAndroid) WebView.platform = AndroidWebView();
@@ -39,7 +39,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
               javascriptMode: JavascriptMode.unrestricted,
               onWebViewCreated: (c) {
                 c.loadUrl(
-                  widget.url,
+                  Uri.encodeFull(widget.url),
                 );
               },
               onPageFinished: (c) {

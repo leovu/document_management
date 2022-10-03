@@ -497,7 +497,7 @@ class _FileManagementState extends State<FileManagement> {
                             setState(() {
                               e.isDownloading = true;
                             });
-                            String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${e.fileId}','${e.createdDate}_${e.fileName}');
+                            String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${e.fileId}','${e.createdDate}_${e.fileName}',e.info?.ext??'');
                             if(!mounted) return;
                             await FileProcess.openFile(result,context,e.fileName!);
                             setState(() {
@@ -529,7 +529,7 @@ class _FileManagementState extends State<FileManagement> {
                           setState(() {
                             e.isDownloading = true;
                           });
-                          String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${e.fileId}','${e.createdDate}_${e.fileName}');
+                          String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${e.fileId}','${e.createdDate}_${e.fileName}',e.info?.ext??'');
                           setState(() {
                             if(result != null) {
                               e.isDownloaded = true;
@@ -596,7 +596,7 @@ class _FileManagementState extends State<FileManagement> {
               setState(() {
                 e.isDownloading = true;
               });
-              String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${e.fileId}','${e.createdDate}_${e.fileName}');
+              String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${e.fileId}','${e.createdDate}_${e.fileName}',e.info?.ext??'');
               if(!mounted) return;
               await FileProcess.openFile(result,context,e.fileName!);
               setState(() {
@@ -631,7 +631,7 @@ class _FileManagementState extends State<FileManagement> {
                                 setState(() {
                                   e.isDownloading = true;
                                 });
-                                String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${e.fileId}','${e.createdDate}_${e.fileName}');
+                                String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${e.fileId}','${e.createdDate}_${e.fileName}',e.info?.ext??'');
                                 setState(() {
                                   if(result != null) {
                                     e.isDownloaded = true;
@@ -723,7 +723,7 @@ class _FileManagementState extends State<FileManagement> {
         setState(() {
           data.isDownloading = true;
         });
-        String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${data.fileId}','${data.createdDate}_${data.fileName}');
+        String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${data.fileId}','${data.createdDate}_${data.fileName}',data.info?.ext??'');
         if(!mounted) return;
         await FileProcess.openFile(result,context,data.fileName!);
         setState(() {
@@ -770,7 +770,7 @@ class _FileManagementState extends State<FileManagement> {
       setState(() {
         data.isDownloading = true;
       });
-      String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${data.fileId}','${data.createdDate}_${data.fileName}');
+      String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${data.fileId}','${data.createdDate}_${data.fileName}',data.info?.ext??'');
       if(!mounted) return;
       setState(() {
         if(result != null) {

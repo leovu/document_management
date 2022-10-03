@@ -84,7 +84,7 @@ class _FileVersionHistoryScreenState extends State<FileVersionHistoryScreen> {
               setState(() {
                 e.isDownloading = true;
               });
-              String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${widget.data.fileId}&version_id=${e.versionId}','${e.lastModified}_${e.fileName}');
+              String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${widget.data.fileId}&version_id=${e.versionId}','${e.lastModified}_${e.fileName}',e.info?.ext??'');
               if(!mounted) return;
               await FileProcess.openFile(result,context,e.fileName!);
               setState(() {
@@ -166,7 +166,7 @@ class _FileVersionHistoryScreenState extends State<FileVersionHistoryScreen> {
                                     setState(() {
                                       e.isDownloading = true;
                                     });
-                                    String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${widget.data.fileId}&version_id=${e.versionId}','${e.lastModified}_${e.fileName}');
+                                    String? result = await FileProcess.download(context,'${HTTPConnection.domain}files/download?file_id=${widget.data.fileId}&version_id=${e.versionId}','${e.lastModified}_${e.fileName}',e.info?.ext??'');
                                     setState(() {
                                       if(result != null) {
                                         e.isDownloaded = true;

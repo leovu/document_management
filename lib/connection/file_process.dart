@@ -7,6 +7,7 @@ import 'package:document_management/document_screen/media_screen.dart';
 import 'package:document_management/document_screen/photo_view.dart';
 import 'package:document_management/localization/app_localization.dart';
 import 'package:document_management/localization/lang_key.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mime/mime.dart';
 import 'package:open_filex/open_filex.dart';
@@ -77,7 +78,7 @@ class FileProcess {
       return false;
     }
   }
-  static Future<String?> download(BuildContext context,String url,String filename) async {
+  static Future<String?> download(BuildContext context,String url,String filename, String ext) async {
     try {
       bool granted = false;
       if (Platform.isAndroid) {
@@ -119,9 +120,17 @@ class FileProcess {
       }
       if (directory != null) {
         String urlPath = '${directory.path}/$filename';
+        if(ext != '') {
+          urlPath += '.$ext';
+        }
         bool checkAvailable = await io.File(urlPath).exists();
         if(checkAvailable) {
           return urlPath;
+        }
+        if (kDebugMode) {
+          print('***** Download *****');
+          print(Uri.encodeFull(url));
+          print('***** Download *****');
         }
         await Dio().download(
           url,
@@ -203,7 +212,11 @@ class FileProcess {
   }
   static bool isImage(String path) {
     final mimeType = lookupMimeType(path) ?? '';
-    return mimeType.startsWith('image/') || path == 'image/';
+    bool result = mimeType.startsWith('image/') || path == 'image/';
+    if(path.contains('jfif')) {
+      result = true;
+    }
+    return result;
   }
   static bool isAudio(String path) {
     final mimeType = lookupMimeType(path) ?? '';
