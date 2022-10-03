@@ -517,7 +517,7 @@ class _FolderManagementState extends State<FolderManagement> {
                         children: [
                           AutoSizeText(e.folderDisplayName ?? '',overflow: TextOverflow.ellipsis,style: const TextStyle(fontWeight: FontWeight.bold),),
                           Container(height: 3.0),
-                          AutoSizeText('${format2.format(format1.parse(e.updatedDate!, true).toLocal())} - ${e.totalItem ?? '0'} ${e.totalItem == null || (e.totalItem ?? 0) <= 1 ? AppLocalizations.text(LangKey.file) : AppLocalizations.text(LangKey.files)}',),
+                          AutoSizeText('${format2.format(format1.parse(e.updatedDate!, true))} - ${e.totalItem ?? '0'} ${e.totalItem == null || (e.totalItem ?? 0) <= 1 ? AppLocalizations.text(LangKey.file) : AppLocalizations.text(LangKey.files)}',),
                         ],
                       ),
                     )),

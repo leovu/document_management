@@ -131,7 +131,7 @@ class _FileVersionHistoryScreenState extends State<FileVersionHistoryScreen> {
                             children: [
                               Expanded(child: AutoSizeText(e.fileName ?? '',overflow: TextOverflow.ellipsis,style: const TextStyle(fontWeight: FontWeight.bold),maxLines: 1,textScaleFactor: 1.1,),),
                               Container(width: 5.0,),
-                              AutoSizeText('Ver ${e.version ?? 1} - ${format2.format(format4.parse(e.lastModified!, true).toLocal())}',overflow: TextOverflow.ellipsis,maxLines: 1,textScaleFactor: 0.95,)
+                              AutoSizeText('Ver ${e.version ?? 1} - ${format2.format(format4.parse(e.lastModified!, true))}',overflow: TextOverflow.ellipsis,maxLines: 1,textScaleFactor: 0.95,)
                             ],
                           ),
                           Container(height: 3.0),

@@ -557,7 +557,7 @@ class _FileManagementState extends State<FileManagement> {
               ),
               AutoSizeText(e.fileName ?? '',overflow: TextOverflow.ellipsis,style: const TextStyle(fontWeight: FontWeight.bold),textScaleFactor: 1.05,),
               Container(height: 3.0),
-              AutoSizeText('Ver ${e.version} - ${format2.format(format4.parse(e.createdDate!, true).toLocal())}',overflow: TextOverflow.ellipsis,maxLines: 1,textScaleFactor: 0.8,),
+              AutoSizeText('Ver ${e.version} - ${format2.format(format4.parse(e.createdDate!, true))}',overflow: TextOverflow.ellipsis,maxLines: 1,textScaleFactor: 0.8,),
               Container(height: 3.0),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -665,7 +665,7 @@ class _FileManagementState extends State<FileManagement> {
                             children: [
                               Expanded(child: AutoSizeText(e.fileName ?? '',overflow: TextOverflow.ellipsis,style: const TextStyle(fontWeight: FontWeight.bold),maxLines: 1,textScaleFactor: 1.1,),),
                               Container(width: 5.0,),
-                              AutoSizeText('Ver ${e.version} - ${format2.format(format4.parse(e.createdDate!, true).toLocal())}',overflow: TextOverflow.ellipsis,maxLines: 1,textScaleFactor: 0.95,)
+                              AutoSizeText('Ver ${e.version} - ${format2.format(format4.parse(e.createdDate!, true))}',overflow: TextOverflow.ellipsis,maxLines: 1,textScaleFactor: 0.95,)
                             ],
                           ),
                           Container(height: 8.0),

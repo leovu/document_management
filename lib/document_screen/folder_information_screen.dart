@@ -147,7 +147,7 @@ class _FolderInformationScreentState extends State<FolderInformationScreen> {
           children: [
             AutoSizeText('${AppLocalizations.text(LangKey.createdDate)}:'),
             Container(width: 10.0,),
-            Expanded(child: AutoSizeText(format2.format(format1.parse(folderInformation!.data!.createdDate!, true).toLocal())))
+            Expanded(child: AutoSizeText(format2.format(format1.parse(folderInformation!.data!.createdDate!, true))))
           ],
         ),
         Container(height: 20.0,),
@@ -158,7 +158,7 @@ class _FolderInformationScreentState extends State<FolderInformationScreen> {
             Expanded(child: AutoSizeText.rich(
               TextSpan(
                   children: [
-                    TextSpan(text: '${format2.format(format1.parse(folderInformation!.data!.updatedDate!, true).toLocal())} ${AppLocalizations.text(LangKey.by)} '),
+                    TextSpan(text: '${format2.format(format1.parse(folderInformation!.data!.updatedDate!, true))} ${AppLocalizations.text(LangKey.by)} '),
                     TextSpan(text: folderInformation?.data?.updatedByName ?? '',style: const TextStyle(fontWeight: FontWeight.bold)),
                     TextSpan(text: ' ${AppLocalizations.text(LangKey.updated)}')
                   ]
