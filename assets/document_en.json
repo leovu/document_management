@@ -111,5 +111,6 @@
   "minute": "Minute",
   "copyUrl": "Copy URL",
   "timeShareExpired" : "The current selection date time is expired, please choose time after the current time",
-  "copyUrlCompleted": "Completed copy URL to clipboard"
+  "copyUrlCompleted": "Completed copy URL to clipboard",
+  "perform": "performed"
 }

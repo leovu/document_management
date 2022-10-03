@@ -112,5 +112,6 @@
   "minute": "Phút",
   "copyUrl": "Sao chép URL",
   "timeShareExpired" : "Thời gian lựa chọn đã quá hạn, vui lòng chọn thời gian sau thời gian hiện tại",
-  "copyUrlCompleted": "Đã sao chép URL vào bộ nhớ tạm"
+  "copyUrlCompleted": "Đã sao chép URL vào bộ nhớ tạm",
+  "perform": "thực hiện"
 }

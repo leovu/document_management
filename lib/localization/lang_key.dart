@@ -116,4 +116,5 @@ class LangKey {
   static const String copyUrl = "copyUrl";
   static const String timeShareExpired = "timeShareExpired";
   static const String copyUrlCompleted = "copyUrlCompleted";
+  static const String perform = "perform";
 }

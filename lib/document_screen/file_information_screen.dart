@@ -104,9 +104,9 @@ class _FileInformationScreenState extends State<FileInformationScreen> {
               padding: const EdgeInsets.only(bottom: 8.0),
               child: AutoSizeText.rich(TextSpan(
                   children: [
-                    TextSpan(text: '${widget.data.lastModified} '),
-                    TextSpan(text:  AppLocalizations.text(LangKey.by),style: const TextStyle(fontWeight: FontWeight.w600)),
-                    TextSpan(text: ' ${widget.data.updatedName} ')
+                    TextSpan(text: '${widget.data.lastModified} ${AppLocalizations.text(LangKey.by)}'),
+                    TextSpan(text: ' ${widget.data.updatedName}',style: const TextStyle(fontWeight: FontWeight.w600)),
+                    TextSpan(text: ' ${AppLocalizations.text(LangKey.perform)}')
                   ]
               )),
             ),
