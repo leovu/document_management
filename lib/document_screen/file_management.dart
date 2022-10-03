@@ -753,10 +753,12 @@ class _FileManagementState extends State<FileManagement> {
         showPasswordInputDialog(data,0);
       }));
     }
-    arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.copyFile),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.copy) ,onPressed: () async {
-      data!.nameController.text = '${data.fileName?.replaceAll(getFileExtension(data.fileName??''), '')} (${AppLocalizations.text(LangKey.copyFile)})';
-      showPasswordInputDialog(data,2);
-    }));
+    if(widget.data.userPermission?.writeBucket == true || widget.data.userPermission?.readWriteBucket == true) {
+      arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.copyFile),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.copy) ,onPressed: () async {
+        data!.nameController.text = '${data.fileName?.replaceAll(getFileExtension(data.fileName??''), '')} (${AppLocalizations.text(LangKey.copyFile)})';
+        showPasswordInputDialog(data,2);
+      }));
+    }
     arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.commentFile),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.comment) ,onPressed: (){
       Navigator.of(context).push(MaterialPageRoute(builder: (context) {
         return CommentScreen(data: data!);
