@@ -546,16 +546,18 @@ class _FolderManagementState extends State<FolderManagement> {
 
   List<FocusedMenuItem> focusMenu({Data? data}) {
     List<FocusedMenuItem> arr = [];
-    arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.detailInfo),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.info_outline) ,onPressed: (){
-      showPasswordInputDialog(data!, 4);
-    }));
+    if(data?.userPermission?.writeBucket == true || data?.userPermission?.readWriteBucket == true) {
+      arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.detailInfo),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.info_outline) ,onPressed: (){
+        showPasswordInputDialog(data!, 4);
+      }));
+    }
     if(data?.userPermission?.writeBucket == true || data?.userPermission?.readWriteBucket == true) {
       arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.changeName),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.edit) ,onPressed: (){
         data?.nameController.text = data.folderDisplayName ?? '';
         showPasswordInputDialog(data!,0);
       }));
     }
-    if(data?.permission == 'custom') {
+    if(data?.permission == 'custom' && data?.owner == DocumentConnection.account?.user?.staff?.userName) {
       arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.userList),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.group) ,onPressed: (){
         Navigator.of(context).push(MaterialPageRoute( builder: (context) => ListUserFolderScreen(data: data!,)));
       }));
