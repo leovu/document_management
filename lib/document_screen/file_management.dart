@@ -740,7 +740,7 @@ class _FileManagementState extends State<FileManagement> {
         return ShareScreen(fileData: data!);
       }));
     }));
-    if((widget.data.userPermission?.writeBucket == true || widget.data.userPermission?.readWriteBucket == true) && widget.data.owner == DocumentConnection.account?.user?.staff?.userName) {
+    if(widget.data.userPermission?.readWriteBucket == true) {
       arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.moveFile),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.drive_file_move_outline) ,onPressed: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           return MoveFileScreen(fileData: data!,folderData: widget.data,);

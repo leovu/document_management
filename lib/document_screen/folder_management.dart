@@ -557,7 +557,7 @@ class _FolderManagementState extends State<FolderManagement> {
         showPasswordInputDialog(data!,0);
       }));
     }
-    if(data?.permission == 'custom' && data?.owner == DocumentConnection.account?.user?.staff?.userName) {
+    if(data?.permission == 'custom' && data?.userPermission?.readWriteBucket == true) {
       arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.userList),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.group) ,onPressed: (){
         Navigator.of(context).push(MaterialPageRoute( builder: (context) => ListUserFolderScreen(data: data!,)));
       }));
