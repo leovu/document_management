@@ -794,7 +794,7 @@ class _FileManagementState extends State<FileManagement> {
         }
       }));
     }
-    if(data?.owner == DocumentConnection.account?.user?.staff?.userName) {
+    if(data?.owner == DocumentConnection.account?.user?.staff?.userName || widget.data.owner == DocumentConnection.account?.user?.staff?.userName) {
       arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.delete),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.delete) ,onPressed: (){
         showPasswordInputDialog(data!,1);
       }));
