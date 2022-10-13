@@ -749,7 +749,7 @@ class _FileManagementState extends State<FileManagement> {
     }
     if(widget.data.userPermission?.writeBucket == true || widget.data.userPermission?.readWriteBucket == true) {
       arr.add(FocusedMenuItem(title: AutoSizeText(AppLocalizations.text(LangKey.changeName),overflow: TextOverflow.ellipsis,),trailingIcon: const Icon(Icons.edit) ,onPressed: (){
-        data!.nameController.text = data.fileName ?? "";
+        data!.nameController.text = '${data.fileName?.replaceAll(getFileExtension(data.fileName??''), '')}';
         showPasswordInputDialog(data,0);
       }));
     }
