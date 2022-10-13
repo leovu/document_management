@@ -282,11 +282,15 @@ class DocumentConnection {
     }
     return false;
   }
-  static Future<bool> moveFileToFolder(BuildContext context,String filePath, String folderName) async {
-    ResponseData responseData = await connection.post('files/move', {
+  static Future<bool> moveFileToFolder(BuildContext context,String filePath, String folderName, String? password) async {
+    Map<String,dynamic> json = {
       'file_path':filePath,
       'folder_name':folderName
-    });
+    };
+    if(password != null) {
+      json['password'] = password;
+    }
+    ResponseData responseData = await connection.post('files/move', json);
     if(responseData.isSuccess) {
       return true;
     }

@@ -124,7 +124,7 @@ class _MoveFileScreenState extends State<MoveFileScreen> {
   }
   void moveFileToFolder(folder.Data folderData, String? password) async {
     DocumentConnection.showLoading(context);
-    bool result = await DocumentConnection.moveFileToFolder(context,widget.fileData.key??'', folderData.folderName??'');
+    bool result = await DocumentConnection.moveFileToFolder(context,widget.fileData.key??'', folderData.folderName??'', password);
     if(!mounted) return;
     Navigator.of(context).pop();
     if(result) {
