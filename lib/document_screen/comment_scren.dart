@@ -75,7 +75,7 @@ class _CommentScreentState extends State<CommentScreen> {
                               Padding(padding: const EdgeInsets.only(right: 10.0),
                                 child: h.staff?.staffAvatar == null ? CircleAvatar(
                                   radius: 20.0,
-                                  child: Text(h.staff!.getAvatarName()),
+                                  child: AutoSizeText(h.staff!.getAvatarName()),
                                 ) : CircleAvatar(
                                   radius: 20.0,
                                   backgroundImage:

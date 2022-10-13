@@ -566,7 +566,7 @@ class _FileManagementState extends State<FileManagement> {
                   Expanded(child: Container()),
                   e.updatedAvatar == null ? CircleAvatar(
                     radius: 8.0,
-                    child: Text(e.getAvatarName()),
+                    child: Center(child: AutoSizeText(e.getAvatarName())),
                   ) : CircleAvatar(
                     radius: 8.0,
                     backgroundImage:
@@ -673,7 +673,7 @@ class _FileManagementState extends State<FileManagement> {
                             children: [
                               e.updatedAvatar == null ? CircleAvatar(
                                 radius: 10.0,
-                                child: Text(e.getAvatarName()),
+                                child: Center(child: AutoSizeText(e.getAvatarName())),
                               ) : CircleAvatar(
                                 radius: 10.0,
                                 backgroundImage:

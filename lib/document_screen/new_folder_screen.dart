@@ -234,7 +234,7 @@ class _NewFolderScreenState extends State<NewFolderScreen> {
                                       ) :
                                       e.staffAvatar == null ? CircleAvatar(
                                         radius: 15.0,
-                                        child: Text(e.getAvatarName()),
+                                        child: AutoSizeText(e.getAvatarName()),
                                       ) : CircleAvatar(
                                         radius: 15.0,
                                         backgroundImage:

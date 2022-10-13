@@ -194,7 +194,7 @@ class _ListUserScreenState extends State<ListUserScreen> {
                   children: [
                     e.staffAvatar == null ? CircleAvatar(
                       radius: 25.0,
-                      child: Text(e.getAvatarName()),
+                      child: AutoSizeText(e.getAvatarName()),
                     ) : CircleAvatar(
                       radius: 25.0,
                       backgroundImage:

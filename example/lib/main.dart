@@ -36,8 +36,8 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setState(() {
-        _tokenController.text = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vc3RhZmYtYXBpLnN0YWcuZXBvaW50cy52bi91c2VyL2xvZ2luIiwiaWF0IjoxNjY0Nzg2MzI2LCJleHAiOjE2NjQ4MDc5MjYsIm5iZiI6MTY2NDc4NjMyNiwianRpIjoiU3ZSdDdCZVFKenhQUURzVCIsInN1YiI6MTM4LCJwcnYiOiJhMGYzZTc0YmVkZjUxMmM0Nzc4Mjk3ZGU1ZjkyMDg2ZGFkMzljYTlmIiwic2lkIjoicXVhbmd0aCIsImJyYW5kX2NvZGUiOiJxYyJ9.6izAUTd88J1ym7nAZ3XwOCFYXM-mAA5cZ9kBFMjCiTA';
-        _domainController.text = 'https://qc.stag.epoints.vn/file/api/';
+        _tokenController.text = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3NhbGUtc3RhZmYuZXBvaW50cy52bi91c2VyL2xvZ2luIiwiaWF0IjoxNjY1NjQ1MDkyLCJleHAiOjE2NjU2NjY2OTIsIm5iZiI6MTY2NTY0NTA5MiwianRpIjoiRDBET2FlNUlZeFdSMFZvVSIsInN1YiI6MTksInBydiI6ImEwZjNlNzRiZWRmNTEyYzQ3NzgyOTdkZTVmOTIwODZkYWQzOWNhOWYiLCJzaWQiOiJjaGlodGgiLCJicmFuZF9jb2RlIjoic2FsZSJ9.2K53BfD2Uv1HnAcARGQPUBq7HRBWon4TMCiNNVsvWSg';
+        _domainController.text = 'https://sale-file.epoints.vn/api/';
       });
     });
   }
@@ -104,7 +104,7 @@ class _MyAppState extends State<MyApp> {
                     errorDialog('Domain Empty');
                     return;
                   }
-                  DocumentManagement.open(context,const Locale(LangKey.langVi, 'VN'), _tokenController.value.text, domain: _domainController.value.text, brandCode: 'qc');
+                  DocumentManagement.open(context,const Locale(LangKey.langVi, 'VN'), _tokenController.value.text, domain: _domainController.value.text, brandCode: 'sale');
                 },
                 child: Container(
                     height: 40.0,
