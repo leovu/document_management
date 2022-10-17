@@ -694,6 +694,7 @@ class _FolderManagementState extends State<FolderManagement> {
               child: Column(
                 children: <Widget>[
                   if(type == 0) TextField(
+                    autofocus: true,
                     controller: data.nameController,
                     decoration: InputDecoration(
                         labelText: AppLocalizations.text(LangKey.changeName),
@@ -702,6 +703,7 @@ class _FolderManagementState extends State<FolderManagement> {
                     ),
                   ),
                   if(data.folderPassword == true) TextField(
+                    autofocus: type != 0,
                     controller: data.passwordController,
                     decoration: InputDecoration(
                         labelText: AppLocalizations.text(LangKey.inputPassword),

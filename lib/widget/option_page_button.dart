@@ -15,7 +15,7 @@ class _OptionPageButtonState extends State<OptionPageButton> {
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: DropdownButton2<dynamic>(
-        customButton: Image.asset('assets/ico/ico-popup-menu.png',package: 'document_management',),
+        customButton: const Icon(Icons.more_vert,color: Colors.blueAccent,),
         items: _menuItems(),
         onChanged: (value) {
           OptionMenuItems.onChanged(context, value as OptionMenuItem);

@@ -168,6 +168,7 @@ class _MoveFileScreenState extends State<MoveFileScreen> {
             child: Column(
               children: <Widget>[
                 if(data.folderPassword == true) TextField(
+                  autofocus: true,
                   controller: data.passwordController,
                   decoration: InputDecoration(
                       labelText: AppLocalizations.text(LangKey.inputPassword),

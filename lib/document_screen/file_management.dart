@@ -854,6 +854,7 @@ class _FileManagementState extends State<FileManagement> {
               child: Column(
                 children: <Widget>[
                   if(type == 0 || type == 2) TextField(
+                    autofocus: true,
                     controller: data.nameController,
                     decoration: InputDecoration(
                         labelText: AppLocalizations.text(LangKey.changeName),
