@@ -139,7 +139,7 @@ class _FileManagementState extends State<FileManagement> {
                     child: OptionPageButton(
                       items: [
                         if(widget.data.userPermission?.writeBucket == true || widget.data.userPermission?.readWriteBucket == true) OptionMenuItem(text: AppLocalizations.text(LangKey.uploadFile), icon: Icons.upload_file, key: 'uploadFile', action:  () async {
-                          upload(context, uploadFile);
+                          upload(uploadFile);
                         }),
                         OptionMenuItem(text: AppLocalizations.text(LangKey.icons), icon: Icons.category_outlined, key: 'icons',isSelected: type == 1 ? true : false, action: () {
                           if(type != 1) {
@@ -952,7 +952,7 @@ class _FileManagementState extends State<FileManagement> {
     setState(() {});
   }
 
-  void upload(BuildContext context, UploadFile uploadFile) {
+  void upload(UploadFile uploadFile) {
     showModalActionSheet<String>(
       context: context,
       actions: Upload.attachmentSheetAction(),

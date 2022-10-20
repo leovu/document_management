@@ -99,7 +99,7 @@
     },
     {
       "name": "dropdown_button2",
-      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/dropdown_button2-1.7.2",
+      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/dropdown_button2-1.8.5",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -297,7 +297,7 @@
     },
     {
       "name": "material_color_utilities",
-      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/material_color_utilities-0.2.0",
+      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/material_color_utilities-0.1.5",
       "packageUri": "lib/",
       "languageVersion": "2.13"
     },
@@ -435,7 +435,7 @@
     },
     {
       "name": "source_span",
-      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/source_span-1.9.1",
+      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/source_span-1.9.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -459,9 +459,9 @@
     },
     {
       "name": "stream_channel",
-      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/stream_channel-2.1.1",
+      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/stream_channel-2.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.12"
     },
     {
       "name": "string_scanner",
@@ -483,9 +483,9 @@
     },
     {
       "name": "test_api",
-      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.14",
+      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.12",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.12"
     },
     {
       "name": "typed_data",
@@ -501,7 +501,7 @@
     },
     {
       "name": "vector_math",
-      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.4",
+      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -548,7 +548,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-09-26T06:11:06.410455Z",
+  "generated": "2022-10-20T03:32:08.430583Z",
   "generator": "pub",
-  "generatorVersion": "2.19.0-229.0.dev"
+  "generatorVersion": "2.18.2"
 }
