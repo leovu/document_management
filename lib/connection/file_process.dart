@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:document_management/connection/document_connection.dart';
 import 'package:document_management/connection/http_connection.dart';
-import 'package:document_management/document_screen/local_file_view_page.dart';
 import 'package:document_management/document_screen/media_screen.dart';
 import 'package:document_management/document_screen/photo_view.dart';
 import 'package:document_management/localization/app_localization.dart';
@@ -119,7 +118,8 @@ class FileProcess {
         directory = await getTemporaryDirectory();
       }
       if (directory != null) {
-        String urlPath = '${directory.path}/$filename';
+        var uri = Uri.encodeComponent(filename);
+        String urlPath = '${directory.path}/$uri';
         if(ext != '') {
           urlPath += '.$ext';
         }
@@ -228,14 +228,8 @@ class FileProcess {
   }
   static Future<void> openFile(String? result,BuildContext context,String fileName) async {
     if(result != null) {
-      List<String> documentFilesType = ['docx', 'doc', 'xlsx', 'xls', 'pptx', 'ppt', 'pdf', 'txt'];
       final mimeType = fileName.split('.').last.toLowerCase();
-      if(documentFilesType.contains(fileName)) {
-        Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-          return LocalFileViewerPage(filePath: result,title: fileName,);
-        }));
-      }
-      else if(isAudio(mimeType)) {
+      if(isAudio(mimeType)) {
         Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
           return MediaScreen(filePath: result,title: fileName);
         }));

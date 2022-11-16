@@ -164,12 +164,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "flutter_file_view",
-      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/flutter_file_view-2.0.7",
-      "packageUri": "lib/",
-      "languageVersion": "2.14"
-    },
-    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/flutter_lints-2.0.1",
       "packageUri": "lib/",
@@ -548,7 +542,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-10-20T03:32:08.430583Z",
+  "generated": "2022-11-16T09:10:17.857546Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }

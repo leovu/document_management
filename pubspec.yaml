@@ -38,7 +38,6 @@ dependencies:
       url: https://github.com/leovu/permission.git
       ref: 1.0.1
   gallery_saver: ^2.3.2
-  flutter_file_view: ^2.0.5
   pull_to_refresh: ^2.0.0
 
 dependency_overrides:
