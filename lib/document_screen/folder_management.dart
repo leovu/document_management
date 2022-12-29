@@ -11,7 +11,6 @@ import 'package:document_management/localization/app_localization.dart';
 import 'package:document_management/localization/lang_key.dart';
 import 'package:document_management/model/folder.dart';
 import 'package:document_management/widget/menu_item_option_page.dart';
-import 'package:document_management/widget/option_page_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/modals.dart';
@@ -45,6 +44,9 @@ class _FolderManagementState extends State<FolderManagement> {
   String? fromDate;
   String? toDate;
 
+  bool isShowDropDownOptionMenu = false;
+  List<Widget> arrMenu = [];
+
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   void _onRefresh() async{
@@ -62,6 +64,7 @@ class _FolderManagementState extends State<FolderManagement> {
   @override
   void initState() {
     super.initState();
+    arrMenu = _arrOptionMenuItemDropDown();
     folderList();
   }
 
@@ -102,6 +105,197 @@ class _FolderManagementState extends State<FolderManagement> {
       }catch(_) {}
     }
   }
+
+  List<Widget> _arrOptionMenuItemDropDown() {
+    List<Widget> arr = [];
+    arr.add(buildItemDropDown(OptionMenuItem(text: AppLocalizations.text(LangKey.createFolder), icon: Icons.create_new_folder_outlined, key: 'createFolder', action:  () async {
+      bool? result = await Navigator.of(context).push(MaterialPageRoute( builder: (context) => const NewFolderScreen()));
+      if(result == true) {
+        folderList();
+      }
+    })));
+    arr.add(buildItemDropDown(OptionMenuItem(text: AppLocalizations.text(LangKey.icons), icon: Icons.category_outlined, key: 'icons',isSelected: type == 1 ? true : false, action: () {
+      if(type != 1) {
+        setState(() {
+          type = 1;
+        });
+      }
+    })));
+    arr.add(buildItemDropDown(OptionMenuItem(text: AppLocalizations.text(LangKey.list), key: 'list', icon: Icons.list_outlined, isSelected: type == 0 ? true : false, action: () {
+      if(type != 0) {
+        setState(() {
+          type = 0;
+        });
+      }
+    })));
+    arr.add(buildItemDropDown(OptionMenuItem(text: AppLocalizations.text(LangKey.customDate),isSelected: !(fromDate == null && toDate == null), key: 'customDate', action: () async {
+      if(fromDate == null && toDate == null) {
+        List<DateTime?>? results = await showCalendarDatePicker2Dialog(
+          context: context,
+          config: CalendarDatePicker2WithActionButtonsConfig(
+            calendarType: CalendarDatePicker2Type.range,
+            okButton: AutoSizeText(AppLocalizations.text(LangKey.accept),style: const TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),),
+            cancelButton: InkWell(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: AutoSizeText(AppLocalizations.text(LangKey.cancel),style: const TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),),
+            ),
+          ),
+          dialogSize: const Size(325, 400),
+          initialValue: [],
+          borderRadius: BorderRadius.circular(15),
+        );
+        if(results != null && results.length == 2) {
+          fromDate = format3.format(results[0]!);
+          toDate = format3.format(results[1]!);
+          folderList();
+        }
+      }
+      else {
+        fromDate = null;
+        toDate = null;
+        folderList();
+      }
+    }),));
+    arr.add(buildItemDropDown(OptionMenuItem(text: AppLocalizations.text(LangKey.newest),isSelected: sortTypeKey == 'date' && sortTypeValue == 'asc', key: 'newest', action: () {
+      if(sortTypeKey == 'date' && sortTypeValue == 'asc') return;
+      setState(() {
+        sortTypeKey = 'date';
+        sortTypeValue = 'asc';
+        isInitScreen = true;
+      });
+      folderList();
+    })));
+    arr.add(buildItemDropDown(OptionMenuItem(text: AppLocalizations.text(LangKey.oldest),isSelected: sortTypeKey == 'date' && sortTypeValue == 'desc', key: 'oldest', action: () {
+      if(sortTypeKey == 'date' && sortTypeValue == 'desc') return;
+      setState(() {
+        sortTypeKey = 'date';
+        sortTypeValue = 'desc';
+        isInitScreen = true;
+      });
+      folderList();
+    })));
+    arr.add(buildItemDropDown(OptionMenuItem(text: AppLocalizations.text(LangKey.azSort),isSelected: sortTypeKey == 'name' && sortTypeValue == 'asc', key: 'azSort', action: () {
+      if(sortTypeKey == 'name' && sortTypeValue == 'asc') return;
+      setState(() {
+        sortTypeKey = 'name';
+        sortTypeValue = 'asc';
+        isInitScreen = true;
+      });
+      folderList();
+    })));
+    arr.add(buildItemDropDown(OptionMenuItem(text: AppLocalizations.text(LangKey.zaSort),isSelected: sortTypeKey == 'name' && sortTypeValue == 'desc', key: 'zaSort', action: () {
+      if(sortTypeKey == 'name' && sortTypeValue == 'desc') return;
+      setState(() {
+        sortTypeKey = 'name';
+        sortTypeValue = 'desc';
+        isInitScreen = true;
+      });
+      folderList();
+    })));
+    arr.add(buildItemDropDown(OptionMenuItem(text: AppLocalizations.text(LangKey.ownerFolder),isSelected: isOwner == null ? false : isOwner == true ? true : false, key: 'ownerFolder', action: () {
+      if(isOwner == null) {
+        setState(() {
+          isOwner = true;
+          isInitScreen = true;
+        });
+        folderList();
+      }
+      else if(isOwner == true) {
+        setState(() {
+          isOwner = null;
+          isInitScreen = true;
+        });
+        folderList();
+      }
+      else {
+        setState(() {
+          isOwner = true;
+          isInitScreen = true;
+        });
+        folderList();
+      }
+    })));
+    arr.add(buildItemDropDown(OptionMenuItem(text: AppLocalizations.text(LangKey.notOwnerFolder),isSelected: isOwner == null ? false : isOwner == false ? true : false, key: 'notOwnerFolder', action: () {
+      if(isOwner == null) {
+        setState(() {
+          isOwner = false;
+          isInitScreen = true;
+        });
+        folderList();
+      }
+      else if(isOwner == false) {
+        setState(() {
+          isOwner = null;
+          isInitScreen = true;
+        });
+        folderList();
+      }
+      else {
+        setState(() {
+          isOwner = false;
+          isInitScreen = true;
+        });
+        folderList();
+      }
+    }),lastItem: true));
+    return arr;
+  }
+
+  Widget buildItemDropDown(OptionMenuItem item, {bool lastItem = false}) {
+    return InkWell(
+      onTap: () => item.action!(),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5.0),
+            child: SizedBox(
+              height: 35.0,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(width: 5.0,),
+                  item.isSelected == null || item.isSelected == false ? Container(width: 30.0,) : const SizedBox(
+                    width: 30.0,
+                    child: Center(
+                        child: Icon(Icons.check,
+                            color: Colors.black,
+                            size: 18)
+                    ),
+                  ),
+                  Container(width: 5.0,),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: AutoSizeText(
+                        item.text,
+                        style: const TextStyle(
+                            color: Colors.black
+                        ),
+                      ),
+                    ),
+                  ),
+                  if(item.icon != null) Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 5.0,right: 15.0),
+                      child: Icon(
+                          item.icon,
+                          color: Colors.black,
+                          size: 22
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          if(!lastItem) Padding(padding: const EdgeInsets.symmetric(horizontal: 15.0),child: Container(height: 1.0,color: Colors.grey.shade400,),)
+        ],
+      )
+    );
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -118,141 +312,13 @@ class _FolderManagementState extends State<FolderManagement> {
             SizedBox(
                 height: 40.0,
                 width: 40.0,
-                child: OptionPageButton(
-                  items: [
-                    OptionMenuItem(text: AppLocalizations.text(LangKey.createFolder), icon: Icons.create_new_folder_outlined, key: 'createFolder', action:  () async {
-                      bool? result = await Navigator.of(context).push(MaterialPageRoute( builder: (context) => const NewFolderScreen()));
-                      if(result == true) {
-                        folderList();
-                      }
-                    }),
-                    OptionMenuItem(text: AppLocalizations.text(LangKey.icons), icon: Icons.category_outlined, key: 'icons',isSelected: type == 1 ? true : false, action: () {
-                      if(type != 1) {
-                        setState(() {
-                          type = 1;
-                        });
-                      }
-                    }),
-                    OptionMenuItem(text: AppLocalizations.text(LangKey.list), key: 'list', icon: Icons.list_outlined, isSelected: type == 0 ? true : false, action: () {
-                      if(type != 0) {
-                        setState(() {
-                          type = 0;
-                        });
-                      }
-                    }),
-                    OptionMenuItem(text: AppLocalizations.text(LangKey.customDate),isSelected: !(fromDate == null && toDate == null), key: 'customDate', action: () async {
-                      if(fromDate == null && toDate == null) {
-                        List<DateTime?>? results = await showCalendarDatePicker2Dialog(
-                          context: context,
-                          config: CalendarDatePicker2WithActionButtonsConfig(
-                            calendarType: CalendarDatePicker2Type.range,
-                            okButton: AutoSizeText(AppLocalizations.text(LangKey.accept),style: const TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),),
-                            cancelButton: InkWell(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: AutoSizeText(AppLocalizations.text(LangKey.cancel),style: const TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),),
-                            ),
-                          ),
-                          dialogSize: const Size(325, 400),
-                          initialValue: [],
-                          borderRadius: BorderRadius.circular(15),
-                        );
-                        if(results != null && results.length == 2) {
-                          fromDate = format3.format(results[0]!);
-                          toDate = format3.format(results[1]!);
-                          folderList();
-                        }
-                      }
-                      else {
-                        fromDate = null;
-                        toDate = null;
-                        folderList();
-                      }
-                    }),
-                    OptionMenuItem(text: AppLocalizations.text(LangKey.newest),isSelected: sortTypeKey == 'date' && sortTypeValue == 'asc', key: 'newest', action: () {
-                      if(sortTypeKey == 'date' && sortTypeValue == 'asc') return;
-                      setState(() {
-                        sortTypeKey = 'date';
-                        sortTypeValue = 'asc';
-                        isInitScreen = true;
-                      });
-                      folderList();
-                    }),
-                    OptionMenuItem(text: AppLocalizations.text(LangKey.oldest),isSelected: sortTypeKey == 'date' && sortTypeValue == 'desc', key: 'oldest', action: () {
-                      if(sortTypeKey == 'date' && sortTypeValue == 'desc') return;
-                      setState(() {
-                        sortTypeKey = 'date';
-                        sortTypeValue = 'desc';
-                        isInitScreen = true;
-                      });
-                      folderList();
-                    }),
-                    OptionMenuItem(text: AppLocalizations.text(LangKey.azSort),isSelected: sortTypeKey == 'name' && sortTypeValue == 'asc', key: 'azSort', action: () {
-                      if(sortTypeKey == 'name' && sortTypeValue == 'asc') return;
-                      setState(() {
-                        sortTypeKey = 'name';
-                        sortTypeValue = 'asc';
-                        isInitScreen = true;
-                      });
-                      folderList();
-                    }),
-                    OptionMenuItem(text: AppLocalizations.text(LangKey.zaSort),isSelected: sortTypeKey == 'name' && sortTypeValue == 'desc', key: 'zaSort', action: () {
-                      if(sortTypeKey == 'name' && sortTypeValue == 'desc') return;
-                      setState(() {
-                        sortTypeKey = 'name';
-                        sortTypeValue = 'desc';
-                        isInitScreen = true;
-                      });
-                      folderList();
-                    }),
-                    OptionMenuItem(text: AppLocalizations.text(LangKey.ownerFolder),isSelected: isOwner == null ? false : isOwner == true ? true : false, key: 'ownerFolder', action: () {
-                      if(isOwner == null) {
-                        setState(() {
-                          isOwner = true;
-                          isInitScreen = true;
-                        });
-                        folderList();
-                      }
-                      else if(isOwner == true) {
-                        setState(() {
-                          isOwner = null;
-                          isInitScreen = true;
-                        });
-                        folderList();
-                      }
-                      else {
-                        setState(() {
-                          isOwner = true;
-                          isInitScreen = true;
-                        });
-                        folderList();
-                      }
-                    }),
-                    OptionMenuItem(text: AppLocalizations.text(LangKey.notOwnerFolder),isSelected: isOwner == null ? false : isOwner == false ? true : false, key: 'notOwnerFolder', action: () {
-                      if(isOwner == null) {
-                        setState(() {
-                          isOwner = false;
-                          isInitScreen = true;
-                        });
-                        folderList();
-                      }
-                      else if(isOwner == false) {
-                        setState(() {
-                          isOwner = null;
-                          isInitScreen = true;
-                        });
-                        folderList();
-                      }
-                      else {
-                        setState(() {
-                          isOwner = false;
-                          isInitScreen = true;
-                        });
-                        folderList();
-                      }
-                    }),
-                  ],
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      isShowDropDownOptionMenu = !isShowDropDownOptionMenu;
+                    });
+                  },
+                  child: const Icon(Icons.more_vert,color: Colors.blueAccent,),
                 )),
       ]),
       body:
@@ -335,21 +401,30 @@ class _FolderManagementState extends State<FolderManagement> {
                 ],
               ),
             ),
-            if(selectedFolder != null) GestureDetector(
+            if(selectedFolder != null || isShowDropDownOptionMenu) GestureDetector(
               onTap: () {
                 setState(() {
                   selectedFolder = null;
+                  isShowDropDownOptionMenu = false;
                 });
               },
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 color: Colors.transparent,
                 child: SlidingUpPanel(
-                  minHeight: MediaQuery.of(context).size.height * 0.45,
+                  minHeight: isShowDropDownOptionMenu ? MediaQuery.of(context).size.height * 0.55 : MediaQuery.of(context).size.height * 0.45,
                   maxHeight: MediaQuery.of(context).size.height,
                   color: Colors.white,
                   borderRadius: const BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
-                  panel: ListView.builder(
+                  panel: isShowDropDownOptionMenu ?
+                  ListView.builder(
+                    itemCount: arrMenu.length,
+                    padding: EdgeInsets.zero,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return arrMenu[index];
+                    },
+                  ) : ListView.builder(
                     itemCount: focusMenu(data: selectedFolder!).length,
                     padding: EdgeInsets.zero,
                     physics: const BouncingScrollPhysics(),

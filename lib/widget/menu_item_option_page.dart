@@ -38,7 +38,7 @@ class OptionMenuItems {
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
               item.text,
-              textScaleFactor: 0.75,
+              textScaleFactor: 1.25,
               style: const TextStyle(
                 color: Colors.black
               ),

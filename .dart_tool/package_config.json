@@ -98,12 +98,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "dropdown_button2",
-      "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/dropdown_button2-1.8.5",
-      "packageUri": "lib/",
-      "languageVersion": "2.17"
-    },
-    {
       "name": "dynamic_color",
       "rootUri": "file:///Users/longvu/.pub-cache/hosted/pub.dartlang.org/dynamic_color-1.5.4",
       "packageUri": "lib/",
@@ -542,7 +536,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-12-21T04:41:14.566804Z",
+  "generated": "2022-12-29T03:02:22.556861Z",
   "generator": "pub",
   "generatorVersion": "2.18.5"
 }
