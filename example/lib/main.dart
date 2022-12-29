@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setState(() {
-        _tokenController.text = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWZmLmVwb2ludHMudm4vdXNlci9sb2dpbiIsImlhdCI6MTY3MjI4MzYzNCwiZXhwIjoxNjcyMzA1MjM0LCJuYmYiOjE2NzIyODM2MzQsImp0aSI6Im1hWjRYQjY0RllpZ081MzUiLCJzdWIiOjEsInBydiI6ImEwZjNlNzRiZWRmNTEyYzQ3NzgyOTdkZTVmOTIwODZkYWQzOWNhOWYiLCJzaWQiOiJhZG1pbkBwaW9hcHBzLnZuIiwiYnJhbmRfY29kZSI6Im1hdHRoZXdzbGlxdW9yIn0.Jnw1ZZSh7H68bjPAOpD5nwHDFeMKrd6WySSX6PSL_-Y';
+        _tokenController.text = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWZmLmVwb2ludHMudm4vdXNlci9sb2dpbiIsImlhdCI6MTY3MjI5ODI2MywiZXhwIjoxNjcyMzE5ODYzLCJuYmYiOjE2NzIyOTgyNjMsImp0aSI6InRKbjZnWEU0TW16OUdhdkwiLCJzdWIiOjg5LCJwcnYiOiJhMGYzZTc0YmVkZjUxMmM0Nzc4Mjk3ZGU1ZjkyMDg2ZGFkMzljYTlmIiwic2lkIjoid2Fvc3VwcG9ydEBwaW9hcHBzLnZuIiwiYnJhbmRfY29kZSI6Im1hdHRoZXdzbGlxdW9yIn0.5hwWFsJMJIK-U8WKfvNho77S8RQc9uBa6Ze8-nQeX6k';
         _domainController.text = 'https://file.epoints.vn/api/';
       });
     });

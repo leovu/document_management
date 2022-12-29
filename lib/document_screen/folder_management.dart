@@ -245,7 +245,12 @@ class _FolderManagementState extends State<FolderManagement> {
 
   Widget buildItemDropDown(OptionMenuItem item, {bool lastItem = false}) {
     return InkWell(
-      onTap: () => item.action!(),
+        onTap: () {
+          setState(() {
+            isShowDropDownOptionMenu = false;
+          });
+          item.action!();
+        },
       child: Column(
         children: [
           Padding(
@@ -300,209 +305,213 @@ class _FolderManagementState extends State<FolderManagement> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.black, 
-          ),
-          backgroundColor: Colors.white,
-          title: Text(AppLocalizations.text(LangKey.folderList),style: const TextStyle(color: Colors.black),),
-          actions: <Widget>[
-            isInitScreen ? Container() :
-            SizedBox(
-                height: 40.0,
-                width: 40.0,
-                child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      isShowDropDownOptionMenu = !isShowDropDownOptionMenu;
-                    });
-                  },
-                  child: const Icon(Icons.more_vert,color: Colors.blueAccent,),
-                )),
-      ]),
-      body:
-      isInitScreen ? Center(child: Platform.isAndroid ? const CircularProgressIndicator() : const CupertinoActivityIndicator()) :
-        Stack(
-          children: [
-            Container(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: const Color(0xFFE7EAEF), borderRadius: BorderRadius.circular(5)),
-                      child: Row(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Center(
-                              child: Icon(
-                                Icons.search,
-                              ),
-                            ),
-                          ),
-                          Expanded(child: TextField(
-                            focusNode: _focusSearch,
-                            controller: _controllerSearch,
-                            onChanged: (_) {
-                              setState(() {
-                                _getVisible();
-                              });
-                            },
-                            decoration: InputDecoration.collapsed(
-                              hintText: AppLocalizations.text(LangKey.search),
-                            ),
-                          )),
-                          Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(5),
-                              child: const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.close,
-                                  ),
-                                ),
-                              ),
-                              onTap: (){
-                                _controllerSearch.text = '';
-                                setState(() {
-                                  _getVisible();
-                                });
-                                FocusManager.instance.primaryFocus?.unfocus();
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+    return Builder(
+        builder: (context) {
+          return Scaffold(
+              appBar: AppBar(
+                  iconTheme: const IconThemeData(
+                    color: Colors.black,
                   ),
-                  Expanded(child:
-                  visibleFolders == null ? Container() :
-                  Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: visibleFolders?.data == null ? Container() :
-                      SmartRefresher(
-                          enablePullDown: true,
-                          enablePullUp: false,
-                          controller: _refreshController,
-                          onRefresh: _onRefresh,
-                          onLoading: _onLoading,
-                          header: const WaterDropHeader(),
-                          child:
-                      type == 0 ? listView() : gridView())
-                  ))
-                ],
-              ),
-            ),
-            if(selectedFolder != null || isShowDropDownOptionMenu) GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedFolder = null;
-                  isShowDropDownOptionMenu = false;
-                });
-              },
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                color: Colors.transparent,
-                child: SlidingUpPanel(
-                  minHeight: isShowDropDownOptionMenu ? MediaQuery.of(context).size.height * 0.55 : MediaQuery.of(context).size.height * 0.45,
-                  maxHeight: MediaQuery.of(context).size.height,
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
-                  panel: isShowDropDownOptionMenu ?
-                  ListView.builder(
-                    itemCount: arrMenu.length,
-                    padding: EdgeInsets.zero,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return arrMenu[index];
-                    },
-                  ) : ListView.builder(
-                    itemCount: focusMenu(data: selectedFolder!).length,
-                    padding: EdgeInsets.zero,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final values = focusMenu(data: selectedFolder!);
-                      FocusedMenuItem item = values[index];
-                      return InkWell(
+                  backgroundColor: Colors.white,
+                  title: Text(AppLocalizations.text(LangKey.folderList),style: const TextStyle(color: Colors.black),),
+                  actions: <Widget>[
+                    isInitScreen ? Container() :
+                    SizedBox(
+                        height: 40.0,
+                        width: 40.0,
+                        child: InkWell(
                           onTap: () {
-                            item.onPressed();
                             setState(() {
-                              selectedFolder = null;
+                              isShowDropDownOptionMenu = !isShowDropDownOptionMenu;
                             });
                           },
-                          child: Column(
-                            children: [
-                              if(index == 0) Container(
-                                height: 50.0,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff4fc4ca).withAlpha(20),
-                                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0))
-                                ),
-                                child: Row(
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                      child: Icon(Icons.folder,color: Colors.black,),
+                          child: const Icon(Icons.more_vert,color: Colors.blueAccent,),
+                        )),
+                  ]),
+              body:
+              isInitScreen ? Center(child: Platform.isAndroid ? const CircularProgressIndicator() : const CupertinoActivityIndicator()) :
+              Stack(
+                children: [
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10.0),
+                          child: Container(
+                            width: double.infinity,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: const Color(0xFFE7EAEF), borderRadius: BorderRadius.circular(5)),
+                            child: Row(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.search,
                                     ),
-                                    Expanded(child: AutoSizeText(selectedFolder!.folderDisplayName ?? '',style: const TextStyle(fontWeight: FontWeight.bold),)),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                      child: InkWell(
-                                        child: const SizedBox(
-                                            height:40,
-                                            width:40,
-                                            child: Icon(Icons.close,color: Colors.black,)),
-                                        onTap: () {
-                                          setState(() {
-                                            selectedFolder = null;
-                                          });
-                                        },
+                                  ),
+                                ),
+                                Expanded(child: TextField(
+                                  focusNode: _focusSearch,
+                                  controller: _controllerSearch,
+                                  onChanged: (_) {
+                                    setState(() {
+                                      _getVisible();
+                                    });
+                                  },
+                                  decoration: InputDecoration.collapsed(
+                                    hintText: AppLocalizations.text(LangKey.search),
+                                  ),
+                                )),
+                                Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: const Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.close,
+                                        ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                  alignment: Alignment.center,
-                                  margin: const EdgeInsets.only(bottom: 1,left: 10.0,right: 10.0),
-                                  color: item.backgroundColor ?? Colors.white,
-                                  height: 50.0,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 14),
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              item.title,
-                                              if (item.trailingIcon != null) ...[item.trailingIcon!]
+                                    onTap: (){
+                                      _controllerSearch.text = '';
+                                      setState(() {
+                                        _getVisible();
+                                      });
+                                      FocusManager.instance.primaryFocus?.unfocus();
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(child:
+                        visibleFolders == null ? Container() :
+                        Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: visibleFolders?.data == null ? Container() :
+                            SmartRefresher(
+                                enablePullDown: true,
+                                enablePullUp: false,
+                                controller: _refreshController,
+                                onRefresh: _onRefresh,
+                                onLoading: _onLoading,
+                                header: const WaterDropHeader(),
+                                child:
+                                type == 0 ? listView() : gridView())
+                        ))
+                      ],
+                    ),
+                  ),
+                  if(selectedFolder != null || isShowDropDownOptionMenu) GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedFolder = null;
+                        isShowDropDownOptionMenu = false;
+                      });
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      color: Colors.transparent,
+                      child: SlidingUpPanel(
+                        minHeight: isShowDropDownOptionMenu ? MediaQuery.of(context).size.height * 0.55 : MediaQuery.of(context).size.height * 0.45,
+                        maxHeight: MediaQuery.of(context).size.height,
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
+                        panel: isShowDropDownOptionMenu ?
+                        ListView.builder(
+                          itemCount: arrMenu.length,
+                          padding: EdgeInsets.zero,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return arrMenu[index];
+                          },
+                        ) : ListView.builder(
+                          itemCount: focusMenu(data: selectedFolder!).length,
+                          padding: EdgeInsets.zero,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final values = focusMenu(data: selectedFolder!);
+                            FocusedMenuItem item = values[index];
+                            return InkWell(
+                                onTap: () {
+                                  item.onPressed();
+                                  setState(() {
+                                    selectedFolder = null;
+                                  });
+                                },
+                                child: Column(
+                                  children: [
+                                    if(index == 0) Container(
+                                      height: 50.0,
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xff4fc4ca).withAlpha(20),
+                                          borderRadius: const BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0))
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          const Padding(
+                                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                            child: Icon(Icons.folder,color: Colors.black,),
+                                          ),
+                                          Expanded(child: AutoSizeText(selectedFolder!.folderDisplayName ?? '',style: const TextStyle(fontWeight: FontWeight.bold),)),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                            child: InkWell(
+                                              child: const SizedBox(
+                                                  height:40,
+                                                  width:40,
+                                                  child: Icon(Icons.close,color: Colors.black,)),
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedFolder = null;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        margin: const EdgeInsets.only(bottom: 1,left: 10.0,right: 10.0),
+                                        color: item.backgroundColor ?? Colors.white,
+                                        height: 50.0,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 14),
+                                          child: Column(
+                                            children: [
+                                              Expanded(
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: <Widget>[
+                                                    item.title,
+                                                    if (item.trailingIcon != null) ...[item.trailingIcon!]
+                                                  ],
+                                                ),
+                                              ),
+                                              if(index != values.length-1)
+                                                InkWell(child: Container(height: 1,color: Colors.grey.shade200,))
                                             ],
                                           ),
-                                        ),
-                                        if(index != values.length-1)
-                                          InkWell(child: Container(height: 1,color: Colors.grey.shade200,))
-                                      ],
-                                    ),
-                                  ))
-                            ],
-                          )
-                      );
-                    },
-                  ),
-                ),
-              ),
-            )
-          ],
-        )
+                                        ))
+                                  ],
+                                )
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              )
+          );
+        },
     );
   }
 
