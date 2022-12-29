@@ -57,7 +57,6 @@ class _FileManagementState extends State<FileManagement> {
 
   bool? hasAction;
   bool isShowDropDownOptionMenu = false;
-  List<Widget> arrMenu = [];
 
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
 
@@ -76,7 +75,6 @@ class _FileManagementState extends State<FileManagement> {
   @override
   void initState() {
     super.initState();
-    arrMenu = _arrOptionMenuItemDropDown();
     fileList();
   }
 
@@ -246,11 +244,11 @@ class _FileManagementState extends State<FileManagement> {
                       borderRadius: const BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
                       panel: isShowDropDownOptionMenu ?
                       ListView.builder(
-                        itemCount: arrMenu.length,
+                        itemCount: _arrOptionMenuItemDropDown().length,
                         padding: EdgeInsets.zero,
                         physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return arrMenu[index];
+                          return _arrOptionMenuItemDropDown()[index];
                         },
                       )
                           :
@@ -497,6 +495,7 @@ class _FileManagementState extends State<FileManagement> {
         onTap: () {
           setState(() {
             isShowDropDownOptionMenu = false;
+            item.isSelected = !(item.isSelected ?? false);
           });
           item.action!();
         },
@@ -652,7 +651,7 @@ class _FileManagementState extends State<FileManagement> {
                   Expanded(child: Container()),
                   e.updatedAvatar == null ? CircleAvatar(
                     radius: 8.0,
-                    child: Center(child: AutoSizeText(e.getAvatarName())),
+                    child: Center(child: AutoSizeText(e.getAvatarName(),textScaleFactor: 0.5,)),
                   ) : CircleAvatar(
                     radius: 8.0,
                     backgroundImage:

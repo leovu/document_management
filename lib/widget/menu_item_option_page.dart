@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 class OptionMenuItem {
   final String text;
   final IconData? icon;
-  final bool? isSelected;
+  bool? isSelected;
   final String key;
   final Function? action;
 
-  const OptionMenuItem({
+  OptionMenuItem({
     required this.text,
     this.icon,
     this.isSelected = false,

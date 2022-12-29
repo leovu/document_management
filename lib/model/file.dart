@@ -167,7 +167,7 @@ class Data {
       }
       avatarName = avatarName.toUpperCase();
     }
-    return avatarName;
+    return avatarName.trim();
   }
 
   String getAvatarVersionName() {

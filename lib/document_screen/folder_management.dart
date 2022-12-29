@@ -45,7 +45,6 @@ class _FolderManagementState extends State<FolderManagement> {
   String? toDate;
 
   bool isShowDropDownOptionMenu = false;
-  List<Widget> arrMenu = [];
 
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
 
@@ -64,7 +63,6 @@ class _FolderManagementState extends State<FolderManagement> {
   @override
   void initState() {
     super.initState();
-    arrMenu = _arrOptionMenuItemDropDown();
     folderList();
   }
 
@@ -248,6 +246,7 @@ class _FolderManagementState extends State<FolderManagement> {
         onTap: () {
           setState(() {
             isShowDropDownOptionMenu = false;
+            item.isSelected = !(item.isSelected ?? false);
           });
           item.action!();
         },
@@ -425,11 +424,11 @@ class _FolderManagementState extends State<FolderManagement> {
                         borderRadius: const BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
                         panel: isShowDropDownOptionMenu ?
                         ListView.builder(
-                          itemCount: arrMenu.length,
+                          itemCount: _arrOptionMenuItemDropDown().length,
                           padding: EdgeInsets.zero,
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
-                            return arrMenu[index];
+                            return _arrOptionMenuItemDropDown()[index];
                           },
                         ) : ListView.builder(
                           itemCount: focusMenu(data: selectedFolder!).length,
