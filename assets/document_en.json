@@ -95,6 +95,7 @@
   "requestNote": "Select Settings, go to App info, tap Permissions, turn on permission and re-enter this screen to use permission",
   "openSetting": "Open setting",
   "getFileError": "Get file error!",
+  "video": "Video",
   "photoGallery": "Photo Gallery",
   "photoCamera": "Photo Camera",
   "uploadingFile": "Uploading file",
