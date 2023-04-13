@@ -13,6 +13,7 @@ class WebViewScreen extends StatefulWidget {
 }
 
 class _WebViewScreenState extends State<WebViewScreen> {
+  WebViewController? controller;
   @override
   void initState() {
     super.initState();
@@ -21,7 +22,22 @@ class _WebViewScreenState extends State<WebViewScreen> {
       print(Uri.encodeFull(widget.url));
       print('***** Webview Load *****');
     }
-    if (Platform.isAndroid) WebView.platform = AndroidWebView();
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageFinished: (String url) {
+            if(!isCompleted) {
+              setState(() {
+                isCompleted = true;
+              });
+            }
+          },
+          onWebResourceError: (WebResourceError error) {},
+        ),
+      )
+      ..loadRequest(Uri.parse(Uri.encodeFull(widget.url)));
   }
   bool isCompleted = false;
   @override
@@ -35,20 +51,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
         ),
         body: Stack(
           children: [
-            WebView(
-              javascriptMode: JavascriptMode.unrestricted,
-              onWebViewCreated: (c) {
-                c.loadUrl(
-                  Uri.encodeFull(widget.url),
-                );
-              },
-              onPageFinished: (c) {
-                if(isCompleted) return;
-                setState(() {
-                  isCompleted = true;
-                });
-              },
-            ),
+            if(controller != null) WebViewWidget(controller: controller!),
             !isCompleted
                 ? Center(child: Platform.isAndroid ? const CircularProgressIndicator() : const CupertinoActivityIndicator())
                 : Container(),
