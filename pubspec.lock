@@ -481,8 +481,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "1.0.6"
-      resolved-ref: "3f447b9adf611fffb5fba9c932d7d3e59824f864"
+      ref: "1.0.9"
+      resolved-ref: "29d5336d8bd86f5294d54b135052023a5900c074"
       url: "https://github.com/leovu/permission.git"
     source: git
     version: "0.0.1"
