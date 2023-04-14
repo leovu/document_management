@@ -35,7 +35,7 @@ dependencies:
   permission:
     git:
       url: https://github.com/leovu/permission.git
-      ref: 1.0.6
+      ref: 1.0.9
   gallery_saver: ^2.3.2
   pull_to_refresh: ^2.0.0
 
