@@ -31,6 +31,7 @@ class _PlayAudioState extends State<PlayAudio> with TickerProviderStateMixin{
     _progress =
         Tween<double>(begin: 0.0, end: 1.0).animate(_animationIconController1!);
     audioPlayer = AudioPlayer();
+    audioCache = AudioCache(fixedPlayer: audioPlayer);
     audioPlayer?.onDurationChanged.listen((Duration d) {
       if(mounted) {
         setState(() {
@@ -38,7 +39,7 @@ class _PlayAudioState extends State<PlayAudio> with TickerProviderStateMixin{
         });
       }
     });
-    audioPlayer?.onDurationChanged.listen((p) {
+    audioPlayer?.onAudioPositionChanged.listen((p) {
       if(mounted) {
         setState(() {
           _position = p;
@@ -110,7 +111,7 @@ class _PlayAudioState extends State<PlayAudio> with TickerProviderStateMixin{
       isPlaying = !isPlaying;
     });
     if (!isSongPlaying){
-      audioPlayer?.play(DeviceFileSource(widget.url));
+      audioPlayer?.play(widget.url,isLocal: true);
       setState(() {
         isSongPlaying = true;
       });

@@ -12,26 +12,26 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  plugin_platform_interface: ^2.1.4
-  http: ^0.13.6
-  dio: ^5.2.1+1
+  plugin_platform_interface: ^2.0.2
+  http: ^0.13.5
+  dio: ^4.0.6
   auto_size_text: ^3.0.0
   intl: ^0.17.0
-  adaptive_dialog: ^1.8.3+1
-  cached_network_image: ^3.2.3
-  flutter_slidable: ^3.0.0
+  adaptive_dialog: ^1.5.0+1
+  cached_network_image: ^3.2.1
+  flutter_slidable: ^2.0.0
   focused_menu: ^1.0.5
   sliding_up_panel: ^2.0.0+1
   file_icon: ^1.0.0
-  calendar_date_picker2: ^0.5.2
-  mime: ^1.0.4
-  open_filex: ^4.3.2
-  file_picker: ^5.3.1
+  calendar_date_picker2: ^0.2.4
+  mime: ^1.0.1
+  open_filex: ^4.1.1
+  file_picker: ^5.2.0
   photo_view: ^0.14.0
-  image_picker: ^0.8.8
-  flutter_file_dialog: ^3.0.1
-  audioplayers: ^4.1.0
-  webview_flutter: ^4.2.2
+  image_picker: ^0.8.5+3
+  flutter_file_dialog: ^2.3.0
+  audioplayers: ^0.20.1
+  webview_flutter: ^4.0.7
   permission:
     git:
       url: https://github.com/leovu/permission.git
@@ -42,7 +42,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

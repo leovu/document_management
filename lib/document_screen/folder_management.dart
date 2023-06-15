@@ -141,6 +141,7 @@ class _FolderManagementState extends State<FolderManagement> {
             ),
           ),
           dialogSize: const Size(325, 400),
+          initialValue: [],
           borderRadius: BorderRadius.circular(15),
         );
         if(results != null && results.length == 2) {
