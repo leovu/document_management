@@ -278,7 +278,7 @@ class _ShareScreenState extends State<ShareScreen> {
               child: InkWell(
                 onTap: () async {
                   if(typeShare == 0 && urlUnlimited != null && urlUnlimited != '') {
-                    Clipboard.setData(ClipboardData(text: urlUnlimited));
+                    Clipboard.setData(ClipboardData(text: urlUnlimited!));
                     try{
                       ScaffoldMessenger.of(DocumentConnection.buildContext!).hideCurrentSnackBar();
                     }catch(_){}
@@ -288,7 +288,7 @@ class _ShareScreenState extends State<ShareScreen> {
                     }catch(_){}
                   }
                   else if(typeShare == 1 && urlLimited != null && urlLimited != '') {
-                    Clipboard.setData(ClipboardData(text: urlLimited));
+                    Clipboard.setData(ClipboardData(text: urlLimited!));
                     try{
                       ScaffoldMessenger.of(DocumentConnection.buildContext!).hideCurrentSnackBar();
                     }catch(_){}
